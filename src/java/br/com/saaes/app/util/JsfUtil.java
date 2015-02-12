@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.com.saaes.app.util;
 
 import java.io.IOException;
@@ -17,12 +11,13 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class JsfUtil {
-
     /**
      * @deprecated @param entities
      * @param selectOne
@@ -108,7 +103,7 @@ public class JsfUtil {
         return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
     }
 
-    public static EntityManager getEm() {
+    public static EntityManager getEm2() {
         return (EntityManager) JsfUtil.getRequestAttribute("em");
     }
 

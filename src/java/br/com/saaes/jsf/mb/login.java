@@ -1,6 +1,6 @@
 package br.com.saaes.jsf.mb;
 
-import br.com.saaes.modelo.T999Acesso;
+import br.com.saaes.facade.FacUtil;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -8,8 +8,11 @@ import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
-import br.com.saaes.app.util.JsfUtil;
-import br.com.saaes.modelo.T900UsuarioPK;
+import br.com.saaes.modelo.T900Usuario;
+//import br.com.saaes.modelo.T900UsuarioPK;
+import br.com.saesdb.util.JPAUtil;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,23 +22,40 @@ import br.com.saaes.modelo.T900UsuarioPK;
 public class login implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    public static final String USUARIO = "usuario";
 
-    private T900UsuarioPK usuarioPk;
-    private T999Acesso usuario;
+    private EntityManager em;
+//    private T900UsuarioPK usuarioPk;
+//    private T999Acesso usuario;
+    private String nomeUsuario;
+    private String senhaUsuario;
+    private HttpSession session;
 
     public void login() {
     }
 
     @PostConstruct
     public void init() {
-
-        EntityManager em = JsfUtil.getEm();
-        this.usuario = new T999Acesso();
+        em = JPAUtil.getEm();
+        FacesContext context = FacesContext.getCurrentInstance();
+        session = (HttpSession) context.getExternalContext().getSession(true);
     }
-
     public void entrar() {
-        if (null == usuario.getT999AcessoPK().getLogin()) {
-            JsfUtil.addAlertMessage("Insira um nome de usuario!");
+        if (null != nomeUsuario) {
+            T900Usuario usuario =  FacUtil.t900UsuarioNome(nomeUsuario, em);
+           
+            //verifica se é nulo
+            
+            //senao, verifica a senha
+            
+            if(usuario.getNome().equals(nomeUsuario)){
+                System.out.println("CERTO");
+                session.setAttribute(USUARIO, usuario);
+                
+            }else{
+                System.out.println("ERRADO");
+            }
+            
         }
 
     }
@@ -63,20 +83,45 @@ public class login implements Serializable {
         return hashtext;
     }
 
-    public T999Acesso getUsuario() {
-        return usuario;
+//    public T999Acesso getUsuario() {
+//        return usuario;
+//    }
+//
+//    public void setUsuario(T999Acesso usuario) {
+//        this.usuario = usuario;
+//    }
+//
+//    public T900UsuarioPK getUsuarioPk() {
+//        return usuarioPk;
+//    }
+//
+//    public void setUsuarioPk(T900UsuarioPK usuarioPk) {
+//        this.usuarioPk = usuarioPk;
+//    }
+    public String getNomeUsuario() {
+        return nomeUsuario;
     }
 
-    public void setUsuario(T999Acesso usuario) {
-        this.usuario = usuario;
+    public void setNomeUsuario(String nomeUsuario) {
+        this.nomeUsuario = nomeUsuario;
     }
 
-    public T900UsuarioPK getUsuarioPk() {
-        return usuarioPk;
+    public String getSenhaUsuario() {
+        return senhaUsuario;
     }
 
-    public void setUsuarioPk(T900UsuarioPK usuarioPk) {
-        this.usuarioPk = usuarioPk;
+    public void setSenhaUsuario(String senhaUsuario) throws NoSuchAlgorithmException {
+        this.senhaUsuario = criptografa(senhaUsuario, "MD5");
+        this.senhaUsuario = criptografa(this.senhaUsuario, "SHA");
+
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
     }
 
 }

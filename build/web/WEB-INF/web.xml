@@ -10,8 +10,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
    
-    <!-- Filtro Segurança -->
-<!--    <filter>
+    <!-- Toda vez que abre o programa, o filtro eh acionado - Filtro Segurança -->
+    <filter>
         <filter-name>OpenSSO</filter-name>
         <filter-class>br.com.saesdb.api.filter.FiltroSeguranca</filter-class>
     </filter>
@@ -19,7 +19,7 @@
         <filter-name>OpenSSO</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
-    </filter-mapping>-->
+    </filter-mapping>
     
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>

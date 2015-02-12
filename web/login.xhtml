@@ -14,14 +14,15 @@
                 <p:growl id="messages"/>
                 <div class="row" >
                     <p:outputLabel value="Usuario"/>
-                    <p:inputText value="#{login.usuarioPk.cdUsu}" />
+                    <p:inputText value="#{login.nomeUsuario}" />
                 </div>
                 <div class="row" >
                     <p:outputLabel value="Senha"/>
-                    <p:password value="#{login.usuario.senha}" />
+                    <p:password value="#{login.senhaUsuario}" />
                     <p:commandButton value="Entrar" style="font-size: 12px; background-color: #3493c5; margin-left: 5px; padding: 0;"
-                                     update="messages"
+                                     actionListener="#{login.entrar()}"
                                      >
+                        <p:ajax update="@form"/>
                                      </p:commandButton>
                 </div>
             </h:form>
