@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template/reduzido_login.xhtml">
+        <ui:define name="estilos-extras">
+            .nome-cliente {font-size:11px;line-height: 25px;}
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="formPrincipal">
+                <p:growl id="messages"/>
+                <div class="row" >
+                    <p:outputLabel value="Usuario"/>
+                    <p:inputText value="#{login.usuarioPk.cdUsu}" />
+                </div>
+                <div class="row" >
+                    <p:outputLabel value="Senha"/>
+                    <p:password value="#{login.usuario.senha}" />
+                    <p:commandButton value="Entrar" style="font-size: 12px; background-color: #3493c5; margin-left: 5px; padding: 0;"
+                                     update="messages"
+                                     >
+                                     </p:commandButton>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition> 
+</html>
+
+
+
+
+
+
