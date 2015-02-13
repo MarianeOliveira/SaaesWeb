@@ -9,5 +9,9 @@
             <file>file:/C:/_desenv/Pessoal/SaaesWeb/src/java/br/com/saesdb/api/filter/FiltroSeguranca.java</file>
             <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/login.xhtml</file>
         </group>
+        <group name="Cacheiro Viajante">
+            <file>file:/E:/_desenv/NetbeansGit/SaaesWeb/web/WEB-INF/web.xml</file>
+            <file>file:/E:/_desenv/NetbeansGit/SaaesWeb/nbproject/build-impl.xml</file>
+        </group>
     </open-files>
 </project-private>
