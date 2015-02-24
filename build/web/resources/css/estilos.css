@@ -3,11 +3,7 @@
 html {
 
 }
-/*p::first-letter {
-    font-size: 110%;
-    padding-right: 0px;
-    margin-left: 15px;
-}*/
+
 a {padding: 4px;white-space: nowrap;}
 table a {text-decoration: none!important;}
 body {background: #FAFBFC;}
@@ -69,15 +65,6 @@ a.ui-button {padding: 5px 15px;}
            box-shadow: 1px 1px 1px 1px #333
 }
 li.destaque {background: #FFCD8B;}
-
-#logo-wide {
-    background: transparent url('banco-do-brasil_f2.png') center center no-repeat;
-    max-width: 80px;
-    max-height: 80px;
-    border-radius: 2px;
-    position: relative;
-    float: left;
-}
 
 .ui-paginator-top {visibility: collapse}
 .ui-layout-unit.ui-layout-west {background: #FAFAFA;}

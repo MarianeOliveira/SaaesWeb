@@ -11,7 +11,8 @@
         </ui:define>
         <ui:define name="corpo">
             <h:form id="formPrincipal">
-                <p:growl id="messages"/>
+            <p:growl id="g"></p:growl>
+            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
                 <div class="row" >
                     <p:outputLabel value="Usuario"/>
                     <p:inputText value="#{login.nomeUsuario}" />
@@ -22,9 +23,11 @@
                     <p:commandButton value="Entrar" style="font-size: 12px; background-color: #3493c5; margin-left: 5px; padding: 0;"
                                      actionListener="#{login.entrar()}"
                                      >
-                        <p:ajax update="@form"/>
                                      </p:commandButton>
+                   
+                    
                 </div>
+               
             </h:form>
         </ui:define>
     </ui:composition> 
