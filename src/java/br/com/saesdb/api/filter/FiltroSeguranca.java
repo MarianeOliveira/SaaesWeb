@@ -32,16 +32,19 @@ public class FiltroSeguranca implements Filter {
 
             T900Usuario usuario = (T900Usuario) httpSession.getAttribute("usuario");
 
+            System.out.println(httpServletRequest.getRequestURL());
             if (usuario == null) {
-                if (!httpServletRequest.getRequestURI().endsWith("login.xhtml")) {
-                    String location = httpServletRequest.getContextPath() + "/login.xhtml";
+                if (!httpServletRequest.getRequestURI().endsWith("login.jsf") && !httpServletRequest.getRequestURI().endsWith("modelo/cadastroUsuario.jsf")) {
+                    String location = httpServletRequest.getContextPath() + "/login.jsf";
                     httpServletResponse.sendRedirect(location);
                     return;
                 }
             }
             if (usuario != null) {
-                if (!httpServletRequest.getRequestURI().endsWith("index.xhtml") && !httpServletRequest.getRequestURI().endsWith("logout.xhtml")) {
-                    String location = httpServletRequest.getContextPath() + "/index.xhtml";
+               if (!httpServletRequest.getRequestURI().endsWith("index.jsf") && !httpServletRequest.getRequestURI().endsWith("logout.jsf")
+                       && !httpServletRequest.getRequestURI().endsWith("consultas.jsf") && !httpServletRequest.getRequestURI().endsWith("acessos.jsf") 
+                        ) {
+                    String location = httpServletRequest.getContextPath() + httpServletRequest.getServletPath();
                     httpServletResponse.sendRedirect(location);
                     return;
                 }

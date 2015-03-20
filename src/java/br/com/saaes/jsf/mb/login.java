@@ -1,19 +1,17 @@
 package br.com.saaes.jsf.mb;
 
-import br.com.saaes.autenticacao.Autenticacao;
 import br.com.saaes.app.util.JsfUtil;
+import br.com.saaes.autenticacao.Autenticacao;
+import br.com.saaes.modelo.T900Usuario;
+import br.com.saesdb.util.JPAUtil;
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.persistence.EntityManager;
-import br.com.saaes.modelo.T900Usuario;
-//import br.com.saaes.modelo.T900UsuarioPK;
-import br.com.saesdb.util.JPAUtil;
-import java.io.IOException;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
-
 
 /**
  *
@@ -30,6 +28,7 @@ public class Login implements Serializable {
     private String senhaUsuario;
     private HttpSession session;
     FacesContext context = FacesContext.getCurrentInstance();
+
     @PostConstruct
     public void init() {
         em = JPAUtil.getEm();
@@ -37,29 +36,35 @@ public class Login implements Serializable {
     }
 
     public void login() {
-        
-    }
-    
-    public void sair() throws IOException{
-        session = (HttpSession) context.getExternalContext().getSession(false);  
-        if(null != session){
-          session.invalidate();
-           FacesContext.getCurrentInstance().getExternalContext().redirect( context.getExternalContext().getRequestContextPath() + "/login.xhtml");
-         }
-    }
-    public void entrar() throws IOException {
-        if (null != nomeUsuario) {
-            T900Usuario usuario = new Autenticacao().validaT900Usuario(nomeUsuario, senhaUsuario);
 
-            //verifica se é nulo
-            //senao, verifica a senha
-            if ( null != usuario ) {
-                session.setAttribute(USUARIO, usuario);
-                FacesContext.getCurrentInstance().getExternalContext().redirect( context.getExternalContext().getRequestContextPath() + "/index.xhtml");
+    }
+
+    public void sair() throws IOException {
+        session = (HttpSession) context.getExternalContext().getSession(false);
+        if (null != session) {
+            session.invalidate();
+            FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/login.jsf");
+        }
+    }
+
+    public void entrar() throws IOException, NoSuchAlgorithmException {
+        String msg = "";
+        try {
+            if (null != nomeUsuario || !nomeUsuario.equals("")) {
+                T900Usuario usuario = new Autenticacao().validaT900Usuario(nomeUsuario, senhaUsuario, em);
+                //verifica se é nulo
+                //senao, verifica a senha
+                if (null != usuario) {
+                    session.setAttribute(USUARIO, usuario);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/index.jsf");
+                } else {
+                    JsfUtil.addAlertMessage("Usuário ou senha inválidos");
+                }
             } else {
-                JsfUtil.addAlertMessage("Usuário inválido");
+                JsfUtil.addAlertMessage("Informe os dados para entrar");
             }
-
+        } catch (Exception e) {
+            JsfUtil.addAlertMessage("Informe os dados para entrar");
         }
 
     }

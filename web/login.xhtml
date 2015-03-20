@@ -1,40 +1,42 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"       
+      xmlns:h="http://java.sun.com/jsf/html">
 
     <ui:composition template="/template/reduzido_login.xhtml">
         <ui:define name="estilos-extras">
-            .nome-cliente {font-size:11px;line-height: 25px;}
+            #visualizacao-padrao {height: 480px;background: #DDD;padding-top: 14%;}
+            #visualizacao-padrao-texto {text-shadow: 1px 1px #aaa;}
+            .invisible {visibility: hidden;}
         </ui:define>
         <ui:define name="corpo">
+            
             <h:form id="formPrincipal">
-            <p:growl id="g"></p:growl>
-            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
+                <p:growl id="g"></p:growl>
+                <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
                 <div class="row" >
                     <p:outputLabel value="Usuario"/>
-                    <p:inputText value="#{login.nomeUsuario}" />
+                    <p:inputText value="#{login.nomeUsuario}"  >
+                        <!--<p:ajax listener="#{login.validaNomeUsuario()}" event="change"/>-->
+                      
+                    </p:inputText>
                 </div>
                 <div class="row" >
                     <p:outputLabel value="Senha"/>
                     <p:password value="#{login.senhaUsuario}" />
-                    <p:commandButton value="Entrar" style="font-size: 12px; background-color: #3493c5; margin-left: 5px; padding: 0;"
+                    <p:commandButton value="Entrar" style="font-size: 12px;  margin-left: 5px;"
                                      actionListener="#{login.entrar()}"
+                                     update="msg"
                                      >
-                                     </p:commandButton>
-                   
-                    
+                    </p:commandButton>
                 </div>
-               
+                <a style="font-size: 10px;" href="#{application.contextPath}/modelo/cadastroUsuario.jsf">Esqueceu sua senha?</a>
+                <br/>
+                <a style="font-size: 10px;" href="#{application.contextPath}/modelo/cadastroUsuario.jsf">Ainda não tem conta, cadastre-se</a>
+
             </h:form>
         </ui:define>
     </ui:composition> 
 </html>
-
-
-
-
-
-

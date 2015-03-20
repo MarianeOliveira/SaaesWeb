@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      xmlns:h="http://java.sun.com/jsf/html"
+      >
+    <ui:composition template="/template/reduzido.xhtml">
+        <ui:define name="corpo">
+            <div id="container-erro" class="col-xs-8 col-xs-offset-2"   >
+                <div class="row">
+                    <span style="font-size: 40px;" class="ft-erro">Desculpe, erro 500!</span> 
+                </div>
+
+
+                <div class="row space1" style="font-style: italic;"> 
+                    <span class="space5">Ocorreu um erro interno do servidor. Este erro já foi catalogado e o estaremos reparando. </span><br/>
+                    <span class="space5">Tente novamente mais tarde ou envie uma mensagem para <a>carloscariello@bb.com.br </a></span>
+                </div>
+
+                <div class="row space2">
+                    <a href="#{application.contextPath}">Retornar à página inicial.</a>
+                </div>
+                <div class="row space2">
+                    <div class="col-xs-12">
+                        <strong>Detalhe do Erro: </strong>
+                    </div>
+                    <div class="col-xs-12" style="background: beige;overflow-y: scroll; max-height: 300px;padding: 10px;">
+                        <strong>#{erroMensagem}</strong>
+                        <br class="space1" />
+                        <h:outputText value="#{erroStackTrace}" escape="false" />
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

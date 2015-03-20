@@ -8,6 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -23,22 +24,21 @@ public class Logout implements Serializable {
     private String encerrado;
     FacesContext context = FacesContext.getCurrentInstance();
 
-
     @PostConstruct
     public void init() {
-        encerrado = "Fim da sessão";
+            encerrado = "Fim da sessão";
 
-        session = (HttpSession) context.getExternalContext().getSession(false);
-        if (null != session) {
-            session.invalidate();
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/login.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
+            session = (HttpSession) context.getExternalContext().getSession(false);
+            if (null != session) {
+                session.invalidate();
+                try {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/login.jsf");
+                } catch (IOException ex) {
+                    Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
-    }
-    
+
     public Logout() {
     }
 

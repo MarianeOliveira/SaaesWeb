@@ -18,3 +18,16 @@ function scrollToAnchor(aid){
     var aTag = $("[id='"+ aid +"']");
     $('html,body').animate({scrollTop: aTag.offset().top},300);
 }
+
+function inicioAjaxLoad(id){ $("[id='"+ id +"']").css("visibility","visible"); };
+function fimAjaxLoad(id){ $("[id='"+ id +"']").css("visibility","invisible"); ; };
+
+function start() {  PF('statusDialog').show(); }
+ 
+function stop() { PF('statusDialog').hide(); }
+
+//$(document).ready(function() {
+//    $("input, textarea").bind('paste', function(evt) {
+//            $(evt.currentTarget).keyup();
+//     });//end bind.
+//});//end document.
