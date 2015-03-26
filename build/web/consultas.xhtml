@@ -1,22 +1,25 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-    <ui:composition template="/template/reduzido.xhtml">
-        <ui:define name="estilos-extras">
-            .nome-cliente {font-size:11px;line-height: 25px;}
-        </ui:define>
-        <ui:define name="corpo">
-            <h:form id="formPrincipal">
-            <p:growl id="g"></p:growl>
-            <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
-                <div class="row" >
-                    #{consulta.teste}
+    <h:body>
+        <ui:composition template="/template/reduzido.xhtml">
+            <ui:define name="estilos-extras">
+                .nome-cliente {font-size:11px;line-height: 25px;}
+            </ui:define>
+            <ui:define name="corpo">
+
+                <div class="row ">
+                    <h:form id="formPrincipal">
+                        <p:growl id="messages"/>
+                        <div style="min-height: 730px;">
+                            Em desenvolvimento
+
+                        </div>
+                    </h:form>
                 </div>
-            </h:form>
-        </ui:define>
-    </ui:composition> 
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

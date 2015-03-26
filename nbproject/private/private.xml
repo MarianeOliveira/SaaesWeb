@@ -2,19 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="Testando Novo">
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/src/java/br/com/saesdb/api/filter/FiltroSeguranca.java</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/consultas.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/template/reduzido.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/template/reduzido_login.xhtml</file>
-        </group>
         <group name="Meus">
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/acessos.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/src/java/br/com/saesdb/api/filter/FiltroSeguranca.java</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/template/reduzido.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/logout.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/src/java/br/com/saaes/jsf/mb/Logout.java</file>
-            <file>file:/C:/_desenv/Pessoal/SaaesWeb/web/login.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/WEB-INF/web.xml</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/index.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Consulta.java</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/login.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/api/filter/FiltroSeguranca.java</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Login.java</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/test/br/com/teste/db/DBTeste.java</file>
         </group>
     </open-files>
 </project-private>
