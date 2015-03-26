@@ -3,11 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      lang="pt-BR">
+      lang="pt-BR"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:head>
         <title>.:: SAAES ::. <ui:insert name="titulo-adicional"/></title>
-        <link href="#{application.contextPath}/resources/img/book.png" rel="icon"/>
+        <link href="saaes/resources/img/book.png" rel="icon"/>
         <link href="#{application.contextPath}/resources/img/book.png" rel="shortcut icon"/>
         <link href="#{application.contextPath}/resources/css/bootstrap+theme.min.css" type="text/css" rel="stylesheet" />
         <link href="#{application.contextPath}/resources/css/estilos.css?1" type="text/css" rel="stylesheet" />
@@ -16,43 +19,51 @@
 
         <ui:insert name="importacao" />
     </h:head>
+
     <h:body>
         <style type="text/css">
-                <ui:insert name="estilos-extras" />
+            <ui:insert name="estilos-extras" />
         </style>
-   
-            <div id="menu-over-header" class="row">
-                <div class="container">
-                    <!-- Conteudo Menu TOP -->
-                    <div class="row">
-                       
-                        <h:panelGroup layout="block" 
-                                      styleClass="col-sm-2 col-md-1 hidden-xs"
-                                      >
-                            
-                                <a href="#{application.contextPath}/gerenciar/acessos">Início</a>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" 
-                                      styleClass="col-sm-2 col-md-1 hidden-xs"
-                                      >
-                            
-                                <a href="#{application.contextPath}/gerenciar/acessos">Avaliações</a>
-                        </h:panelGroup>
-                        <h:panelGroup layout="block" 
-                                      styleClass="col-sm-2 col-md-1 hidden-xs"
-                                      >
-                            
-                                <a href="#{application.contextPath}/gerenciar/acessos">Acessos</a>
-                        </h:panelGroup>
-                     
-                    </div>
+
+        <div id="menu-over-header" class="row">
+            <div class="container">
+                <!-- Conteudo Menu TOP -->
+                <div class="row">
+                    <h:panelGroup layout="block" 
+                                  styleClass="col-sm-2 col-md-1 hidden-xs"
+                                  >
+
+                        <a href="#{application.contextPath}/index.jsf">Início</a>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" 
+                                  styleClass="col-sm-2 col-md-1 hidden-xs"
+                                  >
+
+                        <a href="#{application.contextPath}/consultas.jsf">Consultas</a>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" 
+                                  styleClass="col-sm-2 col-md-1 hidden-xs"
+                                  >
+
+                        <a href="#{application.contextPath}/acessos.jsf">Acessos</a>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" 
+                                  styleClass="col-sm-2 col-md-1 hidden-xs"
+                                  >
+
+                        <a href="#{application.contextPath}/logout.jsf" id="sair" >
+                            <f:param  name="id" value="#{param['id']}"></f:param>
+                            Sair</a>
+                    </h:panelGroup>
+
                 </div>
             </div>
+        </div>
         <div id="header" class="row">
             <div class="col-xs-12">
                 <div class="container">
                     <div class="row">
-                        <div id="logo" class="col-xs-1 col-md-1 col-lg-1"><a title="Página Inicial da Dirao">
+                        <div id="logo" class="col-xs-1 col-md-1 col-lg-1"><a title="Página Inicial do SAAES">
                                 <img src="#{application.contextPath}/resources/css/books-icon.png" /></a></div>
                         <div id="nome-aplicativo" class="col-xs-9" onclick="window.location.href = '#{application.contextPath}'">
                             SAAES
@@ -64,16 +75,16 @@
         </div>
         <div class="row conteudo" style="margin-top: 5px;">
             <div class="container">
-                    <h:form id="barra-navegacao">
-                        <ui:insert name="navegacao" />
-                    </h:form>
-                
-                    <div id="corpo">
-                        <ui:insert name="corpo"/>
-                    </div>
+                <h:form id="barra-navegacao">
+                    <ui:insert name="navegacao" />
+                </h:form>
+
+                <div id="corpo">
+                    <ui:insert name="corpo"/>
+                </div>
             </div>
         </div>
-        
+
         <script type="text/javascript">
             function checkEnter(e){
                 e = e || event;
@@ -87,7 +98,9 @@
                 <ui:insert name="jQueryOnReady" />
             });
         </script>
-                  <span style="color: transparent;">Sistema de Auxílio para Avaliadores do Ensino Superior</span>
+        <span style="color: transparent;">Sistema de Auxílio para Avaliadores do Ensino Superior</span>
+
     </h:body>
+
 </html>
 

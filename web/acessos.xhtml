@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <ui:composition template="/template/reduzido.xhtml">
+        <ui:define name="estilos-extras">
+            .nome-cliente {font-size:11px;line-height: 25px;}
+        </ui:define>
+        <ui:define name="corpo">
+            <h:form id="formPrincipal">
+                <p:growl id="g"></p:growl>
+                <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
+                <div class="row" >
+                    #{acessos.teste}
+                    
+                    <p:tabView id="tabs"  rendered="true">
+                    
+                    <!--Pendentes de Atribuição-->
+                    <p:tab id="tabPendentes" title="Pendentes">
+                        teste
+                    </p:tab>
+                    
+                    <p:tab id="tabPend" title="Nao pendente">
+                        teste dois
+                    </p:tab>
+                    
+                    </p:tabView>
+                    
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition> 
+</html>

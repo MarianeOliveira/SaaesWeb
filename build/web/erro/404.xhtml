@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" 
+      xmlns:ui="http://java.sun.com/jsf/facelets" 
+      >
+    <ui:composition template="/template/reduzido.xhtml">
+        <ui:define name="corpo">
+            <div class="row">
+                <div class="col-xs-8 space5"  style="text-align:center;">
+                    <div class="row">
+                        <span style="font-size: 65px;" class="ft-erro">404</span><span class="ft-erro" style="font-size: 34px;"> - Página não encontrada.</span>
+                    </div>
+                    <div class="row space5"> 
+                        <span class="space5">Desculpe, depois de procuramos muito, não encontramos a página que você pediu.</span>
+                    </div>
+                    <div class="row space5">
+                        <a href="#{application.contextPath}">Clique aqui  para retornar à página inicial.</a>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <span style="font-size: 303px;color: #eee;font-family: serif; opacity: 0.4;">?</span>
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+</html>

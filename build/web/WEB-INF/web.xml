@@ -4,11 +4,11 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-    <servlet>
+    <!--    <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
-    </servlet>
+    </servlet>-->
    
     <!-- Toda vez que abre o programa, o filtro eh acionado - Filtro Segurança -->
     <filter>
@@ -18,19 +18,65 @@
     <filter-mapping>
         <filter-name>OpenSSO</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
     </filter-mapping>
-    
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
+        <!--<url-pattern>*.xhtml</url-pattern>-->
     </servlet-mapping>
+    
+<!--    <security-constraint>
+        <display-name>Bloqueia o browser de acessar arquivos xhtml</display-name>
+        <web-resource-collection>
+            <web-resource-name>xhtml files</web-resource-name>
+            
+            <url-pattern>*.xhtml</url-pattern>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>-->
+    
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>bootstrap</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.primefaces.extensions.DELIVER_UNCOMPRESSED_RESOURCES</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+        <mime-mapping>
+        <extension>.woff</extension>
+        <mime-type>application/x-font-woff</mime-type>
+    </mime-mapping>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>index.jsf</welcome-file>
     </welcome-file-list>
+    
+    <error-page>
+        <error-code>500</error-code>
+        <location>/erro/500.jsf</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/erro/404.jsf</location>
+    </error-page>
+   
 </web-app>
