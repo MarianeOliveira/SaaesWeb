@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author f4679646
+ * @author MARI
  */
 public class DBTeste {
     private EntityManager em = JPAUtil.getEm();

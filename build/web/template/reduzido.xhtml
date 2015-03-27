@@ -23,24 +23,35 @@
             <div class="container">
                 <!-- Conteudo Menu TOP -->
                 <div class="row">
+                    <div class="col-xs-2">
                     <h:panelGroup layout="block" 
                                   styleClass="col-sm-2 col-md-1 hidden-xs"
                                   >
 
                         <a href="#{application.contextPath}/index.jsf">Início</a>
                     </h:panelGroup>
+                        </div><div class="col-xs-2">
                     <h:panelGroup layout="block" 
                                   styleClass="col-sm-2 col-md-1 hidden-xs"
                                   >
 
-                        <a href="#{application.contextPath}/consultas.jsf">Consultas</a>
+                        <a href="#{application.contextPath}/cadastros.jsf">Cadastros</a>
                     </h:panelGroup>
+                             </div><div class="col-xs-2">
+                     <h:panelGroup layout="block" 
+                                  styleClass="col-sm-2 col-md-1 hidden-xs"
+                                  >
+
+                        <a href="#{application.contextPath}/consulta.jsf">Relatórios</a>
+                    </h:panelGroup>
+                                  </div><div class="col-xs-2">
                     <h:panelGroup layout="block" 
                                   styleClass="col-sm-2 col-md-1 hidden-xs"
                                   >
 
-                        <a href="#{application.contextPath}/acessos.jsf">Acessos</a>
+                        <a href="#{application.contextPath}/cadastros.jsf">Acessos</a>
                     </h:panelGroup>
+                                       </div><div class="col-xs-2">
                     <h:panelGroup layout="block" 
                                   styleClass="col-sm-2 col-md-1 hidden-xs"
                                   >
@@ -49,6 +60,7 @@
                             <f:param  name="id" value="#{param['id']}"></f:param>
                             Sair</a>
                     </h:panelGroup>
+                                            </div>
 
                 </div>
             </div>

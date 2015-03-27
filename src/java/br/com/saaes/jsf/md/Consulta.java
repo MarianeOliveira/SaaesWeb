@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author f4679646
+ * @author MARI
  */
 @ManagedBean
 public class Consulta implements Serializable {
