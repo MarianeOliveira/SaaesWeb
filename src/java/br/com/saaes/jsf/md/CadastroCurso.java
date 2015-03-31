@@ -9,7 +9,6 @@ public class CadastroCurso extends Operacional{
     public CadastroCurso() {
         super.init();
     }
-    
-    
+       
     
 }
