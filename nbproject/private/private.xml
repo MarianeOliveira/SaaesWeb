@@ -3,13 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group name="Meus">
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/WEB-INF/web.xml</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/index.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Consulta.java</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/login.xhtml</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/api/filter/FiltroSeguranca.java</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Login.java</file>
-            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/test/br/com/teste/db/DBTeste.java</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/web/cadastros.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Novo%20Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/MindmapView.java</file>
+        </group>
+        <group>
+            <file>file:/E:/_desenv/SaaesWeb/test/br/com/teste/db/DBTeste.java</file>
+            <file>file:/E:/_desenv/SaaesWeb/web/resources/css/estilos.css</file>
+            <file>file:/E:/_desenv/SaaesWeb/web/cadastros.xhtml</file>
+            <file>file:/E:/_desenv/SaaesWeb/web/template/reduzido.xhtml</file>
+            <file>file:/E:/_desenv/SaaesWeb/src/java/br/com/saaes/jsf/md/CadastroCurso.java</file>
+            <file>file:/E:/_desenv/SaaesWeb/src/java/br/com/saaes/jsf/md/Operacional.java</file>
         </group>
     </open-files>
 </project-private>

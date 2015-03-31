@@ -4,7 +4,7 @@ import br.com.saaes.modelo.T900Usuario;
 
 /**
  *
- * @author f4679646
+ * @author MARI
  */
 public class Inicial {
 

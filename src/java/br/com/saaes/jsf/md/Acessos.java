@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 /**
  *
- * @author f4679646
+ * @author MARI
  */
 @ManagedBean
 public class Acessos implements Serializable {

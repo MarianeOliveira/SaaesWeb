@@ -196,9 +196,20 @@ form .hasDatepicker {width: 80px;text-align: right;}
 .ui-datalist-item:not(:hover) .excluir {display:none;}
 
 /*FIXES*/
-.ui-widget, .ui-widget .ui-widget, .ui-fieldset-legend { font-size: 94%;}
+.ui-widget, .ui-widget .ui-widget { font-size: 94%;}
+
+.ui-fieldset-legend { font-size: 94%;
+width: 150px;
+}
+
 .ui-widget-content.ui-hidden-container.custom-collpased {border: none!important;}
 [class*='col-'] label {margin-top: 3px;}
+
+.colunaTab{
+    width: 80px; 
+    font-size: x-small; 
+    text-align: center;
+}
 
 .ui-selectonemenu .ui-selectonemenu-trigger {width: 24px;padding-top: 4px;}
 .ui-selectonemenu-panel .ui-selectonemenu-filter-container {width:100%;}
