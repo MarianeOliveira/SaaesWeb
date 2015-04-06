@@ -1,25 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
+    
+    <ui:composition template="/template/reduzido.xhtml">
+        <ui:define name="estilos-extras">
+            .nome-cliente {font-size:11px;line-height: 25px;}
+        </ui:define>
+        <ui:define name="corpo">
+             <div class="row page-container">
+                <h:form id="formPrincipal">
+                <p:growl id="g"></p:growl>
+                <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
 
-    <h:body>
-        <ui:composition template="/template/reduzido.xhtml">
-            <ui:define name="estilos-extras">
-                .nome-cliente {font-size:11px;line-height: 25px;}
-            </ui:define>
-            <ui:define name="corpo">
-
-                <div class="row ">
-                    <h:form id="formPrincipal">
-                        <p:growl id="messages"/>
-                        <div style="min-height: 730px;">
-                            Em desenvolvimento
-
-                        </div>
-                    </h:form>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="Nome completo"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:inputText style="width: 40%;" value="#{cadastroUsuario.novoUsuario.nome}" />
+                    </div>
                 </div>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="E-mail"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:inputText style="width: 30%;" value="#{cadastroUsuario.novoUsuario.email}" />
+                    </div>
+                </div>
+               
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="Telefone"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:inputMask value="#{cadastroUsuario.novoUsuario.telefone}" mask="(99) 9999-9999"/>
+                    </div>
+                </div> 
+                <br/>
+
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="Usuário"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:inputText style="width: 30%;" value="#{cadastroUsuario.novoUsuario.usuario}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="Senha"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:password value="#{cadastroUsuario.novoUsuario.senha}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <p:outputLabel value="Confirmação Senha"/>
+                    </div>
+                    <div class="col-lg-10">
+                        <p:password value="#{cadastroUsuario.confirmaSenha}" >
+                            <p:ajax event="change" listener="#{cadastroUsuario.isSenha}" />
+                        </p:password>
+                    </div>
+                </div>
+
+                <div class="row space5">
+                    <div class="col-lg-2">
+                        <p:commandButton value="Cadastrar" update="@form" icon="ui-icon-disk" actionListener="#{cadastroUsuario.cadastraUsuario()}" style="font-size: 12px;  margin-left: 5px;"/> 
+
+                    </div>
+                </div>
+
+
+            </h:form>
+            </div>
+        </ui:define>
+    </ui:composition> 
 </html>
+
+
+
+
+
+
