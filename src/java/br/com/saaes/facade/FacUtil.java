@@ -1,6 +1,6 @@
 package br.com.saaes.facade;
 
-import static br.com.saaes.jsf.md.Login.USUARIO;
+import static br.com.saaes.jsf.mb.Login.USUARIO;
 import br.com.saaes.modelo.T900Usuario;
 import br.com.saesdb.dao.DAO;
 import javax.faces.context.FacesContext;

@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:poue="http://primefaces.org/ui/extensions"
+      >
+
+    <h:body>
+        <ui:composition template="/template/reduzido.xhtml">
+            <ui:define name="estilos-extras">
+                .nome-cliente {font-size:11px;line-height: 25px;}
+            </ui:define>
+            <ui:define name="corpo">
+
+                <div class="row ">
+                    <h:form id="formPrincipal">
+                        <p:growl id="messages"/>
+                        <div style="min-height: 730px;">
+                            
+                        Em desenvolvimento
+
+                        </div>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
