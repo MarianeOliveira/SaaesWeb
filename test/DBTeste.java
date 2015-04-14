@@ -2,7 +2,7 @@
 package br.com.teste.db;
 
 import br.com.saaes.modelo.T900Usuario;
-import br.com.saesdb.util.JPAUtil;
+import br.com.saaes.util.JPAUtil;
 import javax.persistence.EntityManager;
 import org.junit.Test;
 import static org.junit.Assert.*;

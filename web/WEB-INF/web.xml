@@ -4,16 +4,15 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
-<!--    <servlet>
+    <!--    <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>-->
-   
     <!-- Toda vez que abre o programa, o filtro eh acionado - Filtro Segurança -->
     <filter>
         <filter-name>OpenSSO</filter-name>
-        <filter-class>br.com.saesdb.api.filter.FiltroSeguranca</filter-class>
+        <filter-class>br.com.saaes.api.filter.FiltroSeguranca</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>OpenSSO</filter-name>
@@ -24,8 +23,6 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    
-      
     <context-param>
         <param-name>primefaces.THEME</param-name>
         <param-value>bootstrap</param-value>
@@ -46,7 +43,6 @@
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
     </servlet>
-
     <session-config>
         <session-timeout>
             30
@@ -59,7 +55,6 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
-    
     <error-page>
         <error-code>500</error-code>
         <location>/erro/500.xhtml</location>
@@ -68,6 +63,4 @@
         <error-code>404</error-code>
         <location>/erro/404.xhtml</location>
     </error-page>
-
-    
 </web-app>
