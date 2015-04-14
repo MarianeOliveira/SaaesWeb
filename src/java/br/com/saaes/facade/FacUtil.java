@@ -1,34 +1,34 @@
 package br.com.saaes.facade;
 
-import static br.com.saaes.jsf.mb.Login.USUARIO;
 import br.com.saaes.modelo.T900Usuario;
-import br.com.saesdb.dao.DAO;
+import br.com.saaes.dao.DAO;
+import java.io.IOException;
+import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author 
+ * @author
  */
 public class FacUtil {
 
-    private static HttpSession session;
-    private static FacesContext context = FacesContext.getCurrentInstance();
+    protected static HttpSession session;
+    protected static FacesContext context;
 
-    private T900Usuario usuarioSession;
+    @PostConstruct
+    public void init() {
+        setSession(Boolean.TRUE);
+        context = FacesContext.getCurrentInstance();
+    }
 
     public static T900Usuario t900UsuarioNome(String nome, EntityManager em) {
         return DAO.getSingleResultFromFromNamedQuery(T900Usuario.BUSCA_USUARIO, T900Usuario.class, em, nome);
     }
-
-    public T900Usuario getUsuarioSession() {
-        usuarioSession = (T900Usuario) session.getAttribute(USUARIO);
-        return usuarioSession;
-    }
-
-    public void setUsuarioSession(T900Usuario usuarioSession) {
-        this.usuarioSession = usuarioSession;
+    
+    public static void redirectPag(String pag) throws IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + pag);
     }
 
     public static HttpSession getSession(boolean ativa) {
@@ -36,8 +36,24 @@ public class FacUtil {
         return session;
     }
 
-    public static FacesContext getContext() {
+    public static void setSession(boolean o) {
+                session = (HttpSession) getContext().getExternalContext().getSession(o);
+    }
+
+    public static final void setAtributoSessao(String nome, Object o) {
+        session.setAttribute(nome, o);
+
+    }
+
+    public static final FacesContext getContext() {
+        if (null == context) {
+            context = FacesContext.getCurrentInstance();
+        }
         return context;
+    }
+
+    public static HttpSession getSession() {
+        return session;
     }
 
 }
