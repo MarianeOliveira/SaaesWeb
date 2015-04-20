@@ -51,7 +51,7 @@ public class JsfUtil {
     }
 
     public static void addAlertMessage(String msg) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg);
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Atenção!", msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
 
@@ -61,7 +61,7 @@ public class JsfUtil {
     }
 
     public static void addSuccessMessage(String msg) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg);
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Sucesso!", msg);
         FacesContext.getCurrentInstance().addMessage("Operação Completada com Sucesso.", facesMsg);
     }
 
