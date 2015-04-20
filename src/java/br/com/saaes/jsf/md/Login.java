@@ -33,18 +33,9 @@ public class Login implements Serializable {
 
     }
 
-    public void sair() throws IOException {
-        FacUtil.setSession(Boolean.FALSE);
-        HttpSession session = FacUtil.getSession();
-        if (null != session) {
-            session.invalidate();
-            FacUtil.redirectPag("/login.xhtml");
-        }
-    }
-
     public void entrar() throws IOException, NoSuchAlgorithmException {
-        if(null != FacUtil.getSession()){
-            FacUtil.getSession().invalidate();
+        if (null == FacUtil.getSession()) {
+            FacUtil.setSession(true);
         }
         try {
             if (null != nomeUsuario || !nomeUsuario.equals("")) {
@@ -52,7 +43,7 @@ public class Login implements Serializable {
                 //verifica se é nulo
                 //senao, verifica a senha
                 if (null != usuario) {
-                    FacUtil.setSession(Boolean.TRUE);
+
                     FacUtil.setAtributoSessao(USUARIO_KEY, usuario);
                     FacUtil.redirectPag("/index.xhtml");
                 } else {
@@ -62,7 +53,7 @@ public class Login implements Serializable {
                 JsfUtil.addAlertMessage("Informe os dados para entrar");
             }
         } catch (Exception e) {
-            JsfUtil.addAlertMessage("Informe os dados para entrar");
+            JsfUtil.addAlertMessage("Erro ao entrar");
         }
 
     }

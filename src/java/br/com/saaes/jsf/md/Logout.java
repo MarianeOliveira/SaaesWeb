@@ -1,5 +1,6 @@
 package br.com.saaes.jsf.md;
 
+import br.com.saaes.facade.FacUtil;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -32,6 +33,8 @@ public class Logout implements Serializable {
         if (null != session) {
             session.invalidate();
             try {
+                FacUtil.setSession(session);
+                FacUtil.setContext(context);
                 FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/login.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);

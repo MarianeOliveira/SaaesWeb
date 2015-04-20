@@ -14,8 +14,13 @@ import javax.servlet.http.HttpSession;
  */
 public class FacUtil {
 
-    protected static HttpSession session;
-    protected static FacesContext context;
+    private static HttpSession session;
+    private static FacesContext context;
+
+    public static void setContext(FacesContext aContext) {
+        context = aContext;
+    }
+
 
     @PostConstruct
     public void init() {
@@ -54,6 +59,11 @@ public class FacUtil {
 
     public static HttpSession getSession() {
         return session;
+    }
+    
+    
+    public static void setSession(HttpSession aSession) {
+        session = aSession;
     }
 
 }

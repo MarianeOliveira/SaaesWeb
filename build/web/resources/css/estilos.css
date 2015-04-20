@@ -167,7 +167,7 @@ form .hasDatepicker {width: 80px;text-align: right;}
 
 .clean.ui-datatable .ui-datatable-odd.ui-state-highlight{ background: #1B52FF;}
 
-.clean.ui-datatable .ui-datatable-empty-message td {color:red!important;}
+.clean.ui-datatable .ui-datatable-empty-message td {color:red!important; font-size: 12px;}
 .ui-datatable.clean th {
     font-family: serif;
     font-size: 14px;
@@ -272,4 +272,8 @@ width: 200px;
     color: #00124D;
     text-align: center;
     font: bold;
+}
+.ui-column-title{
+    font-size: 12px;
+    
 }
