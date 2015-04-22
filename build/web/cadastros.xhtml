@@ -144,15 +144,12 @@
                                                 <h:outputLabel value="Instituição de Ensino"   />
                                             </div>
                                             <div class="col-xs-9">
-                                                <p:selectOneMenu  value="#{cadastrar.t300NovoCurso.t200ies}" style="width: 50%;">
+                                                <p:selectOneMenu  value="#{cadastrar.t200IesSeld}" style="width: 50%;">
                                                     <f:selectItem itemLabel="... Selecione ..." noSelectionOption="true" />
                                                     <f:selectItems value="#{cadastrar.t200list}" 
-                                                                   var="t200" 
-                                                                   itemLabel="#{t200.nome} - #{t200.campus}" 
-                                                                   itemValue="#{t200}"/>
-                                                    <p:ajax event="change" 
-                                                            listener="#{cadastrar.onSelectIes}" 
-                                                            />
+                                                                   var="t200ies" 
+                                                                   itemLabel="#{t200ies.nome} - #{t200ies.campus}" 
+                                                                   itemValue="#{t200ies}"/>
                                                 </p:selectOneMenu>
 
                                             </div>
@@ -482,8 +479,8 @@
                                                 <h:outputLabel styleClass="oLPortf" value="Formação/Capacitação/Experiencia Pedagogia" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.expProfCorpDocente}" >
                                                     <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="1" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="0" />
+                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
+                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
                                                     <!--<p:ajax event="change" />-->
                                                 </p:selectOneMenu> 
                                             </div>
