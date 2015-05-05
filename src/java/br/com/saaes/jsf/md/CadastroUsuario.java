@@ -1,7 +1,7 @@
 package br.com.saaes.jsf.md;
 
 import br.com.saaes.app.util.JsfUtil;
-import br.com.saaes.autenticacao.Autenticacao;
+import br.com.saaes.autent.Autenticacao;
 import br.com.saaes.facade.FacUtil;
 import static br.com.saaes.jsf.md.Login.USUARIO_KEY;
 import br.com.saaes.modelo.T900Usuario;

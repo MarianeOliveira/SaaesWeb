@@ -1,9 +1,13 @@
 package br.com.saaes.app.util;
 
+import br.com.saaes.api.filter.FiltroJPA;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +31,7 @@ public class JsfUtil {
     }
 
     public static void addErrorMessage(String msg) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erro!", msg);
         FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
 
@@ -43,11 +47,6 @@ public class JsfUtil {
             newMsgList.add(String.format("%d. %s", i++, m));
         }
         JsfUtil.addErrorMessages(newMsgList);
-    }
-
-    public static void addInfoMessage(String msg) {
-        FacesMessage facesMsg = new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg);
-        FacesContext.getCurrentInstance().addMessage(null, facesMsg);
     }
 
     public static void addAlertMessage(String msg) {
@@ -72,8 +71,14 @@ public class JsfUtil {
     public static HttpServletResponse getCurrentHttpServletResponse() {
         return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
     }
-
-
     
+    public static EntityManager getEm() {
+            return (EntityManager) getCurrentHttpServletRequest().getAttribute(FiltroJPA.EM);
+        }
+    
+    public static Date getInstante(){
+        Calendar calResultado = Calendar.getInstance();
+        return calResultado.getTime();
+    }
 
 }

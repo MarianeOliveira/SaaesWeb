@@ -11,7 +11,7 @@
         </ui:define>
         <ui:define name="corpo">
             <h:form id="formPrincipal">
-                <p:growl id="g"></p:growl>
+<!--                <p:growl id="g"></p:growl>-->
                 <p:messages id="msg" showDetail="true" autoUpdate="true" closable="true" />
 
                 <div class="row">
@@ -33,7 +33,7 @@
                
                 <div class="row">
                     <div class="col-lg-2">
-                        <p:outputLabel value="Telefone"/>
+                        <p:outputLabel value="Telefone(Apenas números)"/>
                     </div>
                     <div class="col-lg-10">
                         <p:inputMask value="#{cadastroUsuario.novoUsuario.telefone}" mask="(99) 9999-9999"/>
@@ -70,7 +70,9 @@
 
                 <div class="row space5">
                     <div class="col-lg-2">
-                        <p:commandButton value="Cadastrar" update="@form" icon="ui-icon-disk" actionListener="#{cadastroUsuario.cadastraUsuario()}" style="font-size: 12px;  margin-left: 5px;"/> 
+                        <p:commandButton value="Cadastrar" 
+                                         update="@form" icon="ui-icon-disk" 
+                                         actionListener="#{cadastroUsuario.cadastraUsuario()}" style="font-size: 12px;  margin-left: 5px;"/> 
 
                     </div>
                 </div>

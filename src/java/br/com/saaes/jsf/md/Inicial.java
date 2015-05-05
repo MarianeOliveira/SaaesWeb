@@ -22,6 +22,7 @@ public class Inicial implements Serializable {
     private static final long serialVersionUID = 1L;
     private HttpSession session;
     private T900Usuario usuario;
+     FacesContext context = FacesContext.getCurrentInstance();
 
 
     public Inicial() {
@@ -38,7 +39,9 @@ public class Inicial implements Serializable {
     }
     public void abrirNova(){
         try {
-            FacUtil.redirectPag("/avaliacao.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/avaliacao.xhtml");
+   
+//            FacUtil.redirectPag("/avaliacao.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,7 +49,9 @@ public class Inicial implements Serializable {
     
     public void consultarExistente(){
         try {
-            FacUtil.redirectPag("/buscar.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/busca.xhtml");
+   
+//            FacUtil.redirectPag("/buscar.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(Inicial.class.getName()).log(Level.SEVERE, null, ex);
         }
