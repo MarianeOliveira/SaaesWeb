@@ -16,6 +16,6 @@ import javax.faces.convert.FacesConverter;
 public class T903RegimeTrabalhoConverter extends GenericConvert{
 
     public T903RegimeTrabalhoConverter() {
-        super(T903regimetrabalho.class, Long.class);
+        super(T903regimetrabalho.class, Integer.class);
     }
 }

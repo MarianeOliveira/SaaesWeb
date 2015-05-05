@@ -16,6 +16,6 @@ import javax.faces.convert.FacesConverter;
 public class T902TitulacaoConverter extends GenericConvert{
 
     public T902TitulacaoConverter() {
-        super(T902titulacao.class, Long.class);
+        super(T902titulacao.class, Integer.class);
     }
 }

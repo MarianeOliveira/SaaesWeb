@@ -83,6 +83,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
         t200IesNova = new T200ies();
         t400NovoDocente = new T400docente();
         t300NovoCurso = new T300cursos();
+        t600NovaBibliografia = new T600bibliografia();
     }
 
     /**
@@ -140,7 +141,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 JsfUtil.addAlertMessage("Falha ao excluir!");
             }
         } catch (Throwable e) {
-            JsfUtil.addErrorMessage("Erro!", "Não foi possível excluir IES!");
+            JsfUtil.addErrorMessage("Não foi possível excluir IES!", "Essa instituição faz parte de algum curso");
             throw new IllegalStateException("Erro: " + e.getMessage());
         }
     }
@@ -155,15 +156,16 @@ public class Cadastrar extends TabViewMB implements Serializable {
                  && (!t300NovoCurso.getNome().equals("") && null != t300NovoCurso.getNome()) ) {
 
                 em.getTransaction().begin();
+                // JsfUtil é uma classe que contem várias funcoes uteis
                 t300NovoCurso.setDtCadastro(JsfUtil.getInstante());
                 DAO.save(t300NovoCurso, t300NovoCurso.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
-                
-                JsfUtil.addSuccessMessage("Novo curso inserido com sucesso!");
-
                 this.t300List.add(t300NovoCurso);
+                
                 t300NovoCurso = new T300cursos();
                 t200IesSeld = new T200ies();
+                t300CursoSeld = new T300cursos();
+                JsfUtil.addSuccessMessage("Novo curso inserido com sucesso!");
             } else {
                 JsfUtil.addAlertMessage("Informe o Nome e o Campus para cadastrar");
             }
@@ -182,13 +184,18 @@ public class Cadastrar extends TabViewMB implements Serializable {
                  && ( !t400NovoDocente.getNome().equals("") && null != t400NovoDocente.getNome() ) ) {
                 em.getTransaction().begin();
                 t400NovoDocente.setT900UsuarioId(usuario);
+                // Seta a data de cadastro // JsfUtil é uma classe que contem várias funcoes uteis
+                t400NovoDocente.setDtCadastro(JsfUtil.getInstante()); 
+                t400NovoDocente.setT300CursoId(t300CursoSeld);
+                
                 DAO.save(t400NovoDocente, t400NovoDocente.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
-                t400NovoDocente = new T400docente();
-                JsfUtil.addSuccessMessage("Docente inserido com sucesso!");
 
                 this.t400DocenteList.add(t400NovoDocente);
                 t400NovoDocente = new T400docente();
+                t200IesSeld = new T200ies();
+                t300CursoSeld = new T300cursos();
+                JsfUtil.addSuccessMessage("Docente inserido com sucesso!");
             } else {
                 JsfUtil.addAlertMessage("Informe um Nome para cadastrar");
             }
@@ -206,20 +213,42 @@ public class Cadastrar extends TabViewMB implements Serializable {
                   && ( !t500NovoCoord.getNome().equals("") && null != t500NovoCoord.getNome() ) ) {
                 em.getTransaction().begin();
                 t500NovoCoord.setT900UsuarioId(usuario);
+                t500NovoCoord.setDtCadastro(JsfUtil.getInstante());
 
                 DAO.save(t500NovoCoord, t500NovoCoord.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
-                t500NovoCoord = new T500coordenador();
-                JsfUtil.addSuccessMessage("Coordenandor inserido com sucesso!");
 
                 this.t500CoordList.add(t500NovoCoord);
                 t500NovoCoord = new T500coordenador();
+                JsfUtil.addSuccessMessage("Coordenandor inserido com sucesso!");
 
             } else {
                 JsfUtil.addAlertMessage("Informe um Nome para cadastrar");
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage("Não foi possível inserir novo Coordenador!");
+        }
+    }
+    
+    public void inserirBibliografia(){
+    try {
+             if ( null != t600NovaBibliografia ) {
+                em.getTransaction().begin();
+                t600NovaBibliografia.setT900UsuarioId(usuario);
+                t600NovaBibliografia.setDtCadastro(JsfUtil.getInstante());
+                
+                DAO.save(t600NovaBibliografia, t600NovaBibliografia.getId(), em, Boolean.TRUE);
+                em.getTransaction().commit();
+                this.t600BibliList.add(t600NovaBibliografia);
+                t600NovaBibliografia = new T600bibliografia();
+
+                JsfUtil.addSuccessMessage("Bibliografia inserida com sucesso!");
+
+            } else {
+                JsfUtil.addAlertMessage("Informe os dados para cadastrar");
+            }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage("Não foi possível inserir nova Bibliografia!");
         }
     }
 
@@ -229,6 +258,8 @@ public class Cadastrar extends TabViewMB implements Serializable {
         t200IesSeld = new T200ies();
         t300CursoSeld = new T300cursos();
         t200IesNova = new T200ies();
+        t600NovaBibliografia = new T600bibliografia();
+        t500NovoCoord = new T500coordenador();
         t400NovoDocente = new T400docente();
         t300NovoCurso = new T300cursos();
     }

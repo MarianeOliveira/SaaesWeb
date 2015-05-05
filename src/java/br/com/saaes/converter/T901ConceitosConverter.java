@@ -16,6 +16,6 @@ import javax.faces.convert.FacesConverter;
 public class T901ConceitosConverter extends GenericConvert{
 
     public T901ConceitosConverter() {
-        super(T901conceitos.class, Long.class);
+        super(T901conceitos.class, Integer.class);
     }
 }

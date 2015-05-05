@@ -16,6 +16,6 @@ import javax.faces.convert.FacesConverter;
 public class T904VinculoEmpregaticioConverter extends GenericConvert{
 
     public T904VinculoEmpregaticioConverter() {
-        super(T904vinculoempregaticio.class, Long.class);
+        super(T904vinculoempregaticio.class, Integer.class);
     }
 }
