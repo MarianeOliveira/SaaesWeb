@@ -18,7 +18,7 @@
                         <div class="row space5">
                             <div class="col-xs-12">
                                 <h5 style="text-align: center;">
-                                    <h:outputText value="#{inicial.usuario.nome}, s" rendered="true"/>eja bem-vind@ ao Sistema de Auxilio a Avaliadores do Ensino Superior.<br/><br/><br/>
+                                    <h:outputText value="#{inicial.usuario.nomeReduzido == null ? inicial.usuario.nome :inicial.usuario.nomeReduzido}, " rendered="true"/>seja bem-vind@ ao Sistema de Auxilio a Avaliadores do Ensino Superior.<br/><br/><br/>
                                     O que deseja fazer? 
                                 </h5>
                             </div>
