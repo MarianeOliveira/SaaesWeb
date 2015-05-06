@@ -24,7 +24,7 @@ public class CadastroUsuario implements Serializable {
     private T900Usuario novoUsuario;
     private String confirmaSenha;
     private EntityManager em;
-    
+
     private final Calendar calendar = Calendar.getInstance();
 
     @PostConstruct
@@ -40,7 +40,7 @@ public class CadastroUsuario implements Serializable {
             novoUsuario.setSenha(Autenticacao.criptografa(novoUsuario.getSenha(), "MD5"));
             novoUsuario.setAtivo(Boolean.TRUE);
             novoUsuario.setDtInc(calendar.getTime());
-
+            
             DAO.save(novoUsuario, novoUsuario.getId(), em, Boolean.TRUE);
 
             em.getTransaction().commit();
@@ -56,9 +56,23 @@ public class CadastroUsuario implements Serializable {
         }
 
     }
-   
-    
-    
+
+    public String setNomeReduzido(String nome) {
+        String nomeReduzido = "";
+        int count = 0;
+        for (int i = 0; i < nome.length(); i++) {
+            if (nome.charAt(i) == ' ') {
+                count++;
+            }
+            if (count < 2) {
+                nomeReduzido = nomeReduzido + nome.charAt(i);
+            }
+        }
+//        String sobreNome = nome.substring(nome.indexOf(" ") + 1, nome.length());
+//        nomeReduzido = nome.substring(0, nome.indexOf(" ")) + " " + sobreNome.substring(0, sobreNome.indexOf(" "));
+        return nomeReduzido;
+    }
+
     public void isSenha() {
         if (confirmaSenha.equals(novoUsuario.getSenha())) {
             JsfUtil.addAlertMessage("Senhas OK");
