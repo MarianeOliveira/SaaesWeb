@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class Login implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    public static final String USUARIO_KEY = "usuario";
+   
 
     private EntityManager em;
     private String nomeUsuario;
@@ -34,26 +34,31 @@ public class Login implements Serializable {
     }
 
     public void entrar() throws IOException, NoSuchAlgorithmException {
-        if (null == FacUtil.getSession()) {
-            FacUtil.setSession(true);
-        }
-        try {
-            if (null != nomeUsuario || !nomeUsuario.equals("")) {
-                T900Usuario usuario = new Autenticacao().validaT900Usuario(nomeUsuario, senhaUsuario, em);
-                //verifica se é nulo
-                //senao, verifica a senha
-                if (null != usuario) {
+        T900Usuario usuario = null;
+             //verifica se é nulo
+            //senao, verifica a senha
+        if (null != nomeUsuario || !nomeUsuario.equals("")) {
+            try {
+                usuario = new Autenticacao().validaT900Usuario(nomeUsuario, senhaUsuario, em);
+            } catch (Exception e) {
+                JsfUtil.addAlertMessage("Usuário ou senha inválidos");
+            }
 
-                    FacUtil.setAtributoSessao(USUARIO_KEY, usuario);
+            try {
+                if (null != usuario) {
+                    if(null == FacUtil.getSession()){
+                        FacUtil.setSession(true);
+                    }
+                    FacUtil.setAtributoSessao(FacUtil.USUARIO_KEY, usuario);
                     FacUtil.redirectPag("/index.xhtml");
                 } else {
                     JsfUtil.addAlertMessage("Usuário ou senha inválidos");
                 }
-            } else {
-                JsfUtil.addAlertMessage("Informe os dados para entrar");
+            } catch (Throwable e) {
+                System.out.print(e.getMessage());
             }
-        } catch (Exception e) {
-            JsfUtil.addAlertMessage("Erro ao entrar");
+        } else {
+            JsfUtil.addAlertMessage("Informe os dados para entrar");
         }
 
     }

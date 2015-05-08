@@ -19,7 +19,6 @@ import javax.servlet.http.HttpSession;
 public class Logout implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private EntityManager em;
     private HttpSession session;
     private String encerrado;
     FacesContext context = FacesContext.getCurrentInstance();
@@ -29,16 +28,21 @@ public class Logout implements Serializable {
     public void init() {
         encerrado = "Fim da sessão";
 
-        session = (HttpSession) context.getExternalContext().getSession(false);
-        if (null != session) {
-            session.invalidate();
-            try {
-                FacUtil.setSession(session);
-                FacUtil.setContext(context);
-                FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + "/login.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(Logout.class.getName()).log(Level.SEVERE, null, ex);
+        try {
+            
+            if (null != FacUtil.getSession()) {
+                session = FacUtil.getSession();
+                FacUtil.getSession().removeAttribute(FacUtil.USUARIO_KEY);
+               if(session.getAttribute(FacUtil.USUARIO_KEY) == null){
+                  FacUtil.redirectPag("/login.xhtml");
+               }
+                    
+             
+                
             }
+            
+        } catch (Throwable e) {
+            throw  new IllegalArgumentException("Error "+e.getMessage());
         }
     }
     
