@@ -16,7 +16,7 @@ public class FacUtil {
 
     private static HttpSession session;
     private static FacesContext context;
-
+    public static final String USUARIO_KEY = "usuario";
     public static void setContext(FacesContext aContext) {
         context = aContext;
     }
@@ -33,7 +33,7 @@ public class FacUtil {
     }
     
     public static void redirectPag(String pag) throws IOException {
-        FacesContext.getCurrentInstance().getExternalContext().redirect(context.getExternalContext().getRequestContextPath() + pag);
+        FacesContext.getCurrentInstance().getExternalContext().redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + pag);
     }
 
     public static HttpSession getSession(boolean ativa) {
@@ -49,6 +49,7 @@ public class FacUtil {
         session.setAttribute(nome, o);
 
     }
+    
 
     public static final FacesContext getContext() {
         if (null == context) {

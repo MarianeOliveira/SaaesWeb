@@ -23,6 +23,9 @@
         <group name="Meus">
             <file>file:/C:/_desenv/Pessoal/Saaes/SaaesWeb/web/template/reduzido.xhtml</file>
             <file>file:/C:/_desenv/Pessoal/Saaes/SaaesWeb/web/index.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Saaes/SaaesWeb/web/login.xhtml</file>
+            <file>file:/C:/_desenv/Pessoal/Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Login.java</file>
+            <file>file:/C:/_desenv/Pessoal/Saaes/SaaesWeb/src/java/br/com/saaes/jsf/md/Logout.java</file>
         </group>
     </open-files>
 </project-private>
