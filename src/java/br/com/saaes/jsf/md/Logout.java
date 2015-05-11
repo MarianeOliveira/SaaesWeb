@@ -29,16 +29,12 @@ public class Logout implements Serializable {
         encerrado = "Fim da sessão";
 
         try {
-            
             if (null != FacUtil.getSession()) {
                 session = FacUtil.getSession();
                 FacUtil.getSession().removeAttribute(FacUtil.USUARIO_KEY);
                if(session.getAttribute(FacUtil.USUARIO_KEY) == null){
                   FacUtil.redirectPag("/login.xhtml");
                }
-                    
-             
-                
             }
             
         } catch (Throwable e) {

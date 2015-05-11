@@ -11,7 +11,6 @@ import java.security.NoSuchAlgorithmException;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
-import javax.servlet.http.HttpSession;
 
 /**
  *
