@@ -19,6 +19,7 @@ import br.com.saaes.modelo.T906tipoato;
 import br.com.saaes.modelo.T907tipocurso;
 import br.com.saaes.util.JPAUtil;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -43,6 +44,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
     private List<T300cursos> t300List;
     private List<T200ies> t200list;
     private List<T400docente> t400DocenteList;
+    private List<T400docente> t400DocenteListSelds;
     private List<T500coordenador> t500CoordList;
     private List<T600bibliografia> t600BibliList;
 
@@ -92,6 +94,13 @@ public class Cadastrar extends TabViewMB implements Serializable {
      */
     public void onSelectIes() {
         this.t300List = DAO.getFromNamedQuery(T300cursos.FIND_IES, T300cursos.class, em, t200IesSeld);
+    }
+    
+     /**
+     * Seleciona Docente
+     */
+    public void onSelectDocente() {
+        this.t400DocenteListSelds = DAO.getFromNamedQuery(T400docente.FIND_IES, T400docente.class, em, t200IesSeld);
     }
 
     /**
@@ -159,6 +168,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 em.getTransaction().begin();
                 // JsfUtil é uma classe que contem várias funcoes uteis
                 t300NovoCurso.setDtCadastro(JsfUtil.getInstante());
+                t300NovoCurso.setT900UsuarioId(usuario);
                 DAO.save(t300NovoCurso, t300NovoCurso.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
                 this.t300List.add(t300NovoCurso);
@@ -187,7 +197,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 t400NovoDocente.setT900UsuarioId(usuario);
                 // Seta a data de cadastro // JsfUtil é uma classe que contem várias funcoes uteis
                 t400NovoDocente.setDtCadastro(JsfUtil.getInstante());
-                t400NovoDocente.setT300CursoId(t300CursoSeld);
+                t400NovoDocente.setT200IesId(t200IesSeld);
 
                 DAO.save(t400NovoDocente, t400NovoDocente.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
@@ -210,18 +220,19 @@ public class Cadastrar extends TabViewMB implements Serializable {
      */
     public void insereNovoCoordenador() {
         try {
-            if (null != t500NovoCoord
-                    && (!t500NovoCoord.getNome().equals("") && null != t500NovoCoord.getNome())) {
+            if (null != t500NovoCoord ) {
                 em.getTransaction().begin();
                 t500NovoCoord.setT900UsuarioId(usuario);
                 t500NovoCoord.setDtCadastro(JsfUtil.getInstante());
                 t500NovoCoord.setT300CursoId(t300CursoSeld);
-
                 DAO.save(t500NovoCoord, t500NovoCoord.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
 
                 this.t500CoordList.add(t500NovoCoord);
                 t500NovoCoord = new T500coordenador();
+                t200IesSeld = new T200ies();
+                t300CursoSeld = new T300cursos();
+                t400DocenteList = new ArrayList<>();
                 JsfUtil.addSuccessMessage("Coordenandor inserido com sucesso!");
 
             } else {
@@ -443,5 +454,13 @@ public class Cadastrar extends TabViewMB implements Serializable {
 
     public void setT904VinculoEmpregaticioList(List<T904vinculoempregaticio> t904VinculoEmpregaticioList) {
         this.t904VinculoEmpregaticioList = t904VinculoEmpregaticioList;
+    }
+
+    public List<T400docente> getT400DocenteListSelds() {
+        return t400DocenteListSelds;
+    }
+
+    public void setT400DocenteListSelds(List<T400docente> t400DocenteListSelds) {
+        this.t400DocenteListSelds = t400DocenteListSelds;
     }
 }

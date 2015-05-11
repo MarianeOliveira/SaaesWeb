@@ -6,7 +6,7 @@
       xmlns:poue="http://primefaces.org/ui/extensions"
       >
 
-    
+
     <h:body>
         <ui:composition template="/template/reduzido.xhtml">
             <ui:define name="estilos-extras">
@@ -14,16 +14,69 @@
             </ui:define>
             <ui:define name="corpo">
 
-                <div class="row ">
+<!--                <div class="row ">
                     <h:form id="formPrincipal">
                         <p:growl id="messages"/>
                         <div style="min-height: 730px;">
-                            
-                        Busca
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h:outputText value="Instituição " />
+                                </div>
+                                <div class="col-xs-8">
+                                    <p:selectOneMenu  value="#{cadastrar.t200IesSeld}" style="width: 60%;" 
+                                                      converter="#{t200IesConverter}" >
+                                        <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cadastrar.t200list}" 
+                                                       var="t200" 
+                                                       itemLabel="#{t200.nome} - #{t200.campus}" 
+                                                       itemValue="#{t200}"  />
+                                        <p:ajax update="selcCursoCoord" 
+                                                event="change" 
+                                                listener="#{cadastrar.onSelectIes}" 
+                                                />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h:outputText value="Curso " />
+                                </div>
+                                <div class="col-xs-8">
+                                    <p:selectOneMenu  id="selcCursoCoord" style="width: 50%;" 
+                                                      converter="#{T300CursoConverter}"
+                                                      value="#{cadastrar.t300CursoSeld}" >
+                                        <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cadastrar.t300List}" 
+                                                       var="t300" 
+                                                       itemLabel="#{t300.nome}" 
+                                                       itemValue="#{t300}"  />
+                                        <p:ajax event="change" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <h:outputText value="Docente" />
+                                </div>
+                                <div class="col-xs-8">
+                                    <p:selectOneMenu  value="#{cadastrar.t500NovoCoord.t400DocenteId}" style="width: 60%;" 
+                                                      converter="#{T400DocenteConverter}" >
+                                        <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
+                                        <f:selectItems value="#{cadastrar.t400DocenteList}" 
+                                                       var="t400" 
+                                                       itemLabel="#{t400.nome} " 
+                                                       itemValue="#{t400}"  />
+                                        <p:ajax event="change" update="dadosDocente"
+                                                />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
 
                         </div>
                     </h:form>
-                </div>
+                </div>-->
             </ui:define>
         </ui:composition>
     </h:body>
