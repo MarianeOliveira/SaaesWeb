@@ -180,6 +180,29 @@ form .hasDatepicker {width: 80px;text-align: right;}
     padding: 1px 5px;
     white-space: nowrap;
 }
+.bar.ui-datatable .ui-datatable-even{background: white ;}
+
+.bar.ui-datatable .ui-datatable-odd.ui-state-hover{background: #DDD ;}
+
+.bar.ui-datatable .ui-datatable-even.ui-state-hover{ background: #DDD ;}
+
+.bar.ui-datatable .ui-datatable-even.ui-state-highlight{ background: #DDD;}
+
+.bar.ui-datatable .ui-datatable-odd.ui-state-highlight{ background: #DDD;}
+
+.bar.ui-datatable .ui-datatable-empty-message td {color:red!important; font-size: 12px;}
+.ui-datatable.bar th {
+    font-family: serif;
+    font-size: 14px;
+    border-bottom: 2px solid #FECB00;
+    background: white;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: #00124D;
+    padding: 1px 5px;
+    white-space: nowrap;
+}
 
 .ui-datatable td.vermelho, tr.vermelho td{background: #E42727;}
 .ui-datatable td.amarelo, tr.amarelo td{background: #FFFA86;}
@@ -208,6 +231,11 @@ width: 200px;
 
 .colunaTab{
     width: 80px; 
+    font-size: x-small; 
+    text-align: center;
+}
+.colunaTabInterna{
+    width: 60px; 
     font-size: x-small; 
     text-align: center;
 }

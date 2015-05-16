@@ -57,7 +57,6 @@
                                                 </p:inputText>
                                             </div>
                                         </div>
-
                                         <div class="row space5">
                                             <div class="col-xs-3 col-xs-offset-3">
                                                 <p:commandButton value="Inserir" 
@@ -98,12 +97,12 @@
                                                           styleClass="colunaTab">
                                                     <p:outputLabel value="#{t200.campus}"/>
                                                 </p:column>
-                                                 <p:column headerText="Usuário"
+                                                <p:column headerText="Usuário"
                                                           styleClass="colunaTab">
                                                     #{t200.t900UsuarioId.nomeReduzido}
                                                 </p:column>
                                                 <p:column headerText="Excluir"
-                                                          style="width: 20px;"
+                                                          style="width: 40px;"
                                                           styleClass="colunaTab">
                                                     <p:commandButton icon="ui-icon-trash"
                                                                      actionListener="#{cadastrar.excluirIes(t200)}"  
@@ -236,7 +235,7 @@
                                         <div style="border-top: 1px solid #aaa; " class="space4"/>
                                         <div class="row">
                                             <div class="col-xs-3">
-                                                <h:outputText value="Duração(Períodos) " />
+                                                <h:outputText value="Duração(anos) " />
                                                 <p:inputText style="width: 90%;" 
                                                              value="#{cadastrar.t300NovoCurso.duracaoCurso}">
                                                     <p:ajax event="change" />
@@ -265,7 +264,6 @@
                                                 </p:inputText>
                                             </div>
                                         </div>
-
                                         <div class="row ">
                                             <div class="col-xs-3">
                                                 <h:outputText value="Número de Vagas" />
@@ -431,7 +429,7 @@
                                                             #{t300.cargaHorariaLibras}
                                                         </p:column>
                                                         <p:column headerText="Duração(Períodos)" 
-                                                                  style="width: 50px;"
+                                                                  style="width: 60px;"
                                                                   styleClass="colunaTab">
                                                             #{t300.duracaoCurso}
                                                         </p:column>
@@ -469,10 +467,10 @@
                                                 collapsed="true">
 
                                         <div class="row">
-                                            <div class="col-xs-3">
+                                            <div class="col-xs-2">
                                                 <h:outputText value="Nome completo " />
                                             </div>
-                                            <div class="col-xs-8">
+                                            <div class="col-xs-6">
                                                 <p:inputText id="addNomeDocente" 
                                                              style="width: 90%;" 
                                                              value="#{cadastrar.t400NovoDocente.nome}"
@@ -482,19 +480,63 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-xs-3">
+                                            <div class="col-xs-2">
                                                 <h:outputText value="Instituição " />
                                             </div>
-                                            <div class="col-xs-8">
-                                                <p:selectOneMenu  value="#{cadastrar.t200IesSeld}" style="width: 60%;" 
+                                            <div class="col-xs-6">
+                                                <p:selectOneMenu  value="#{cadastrar.t200IesSeld}" style="width: 80%;" 
                                                                   converter="#{t200IesConverter}" >
                                                     <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
                                                     <f:selectItems value="#{cadastrar.t200list}" 
                                                                    var="t200" 
                                                                    itemLabel="#{t200.nome} - #{t200.campus}" 
                                                                    itemValue="#{t200}"  />
-                                                    <p:ajax event="change" />
+                                                    <p:ajax update="selcCursodoc" 
+                                                            event="change" 
+                                                            listener="#{cadastrar.onSelectIes()}" 
+                                                            />
                                                 </p:selectOneMenu>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-2">
+                                                <h:outputText value="Curso " />
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <p:selectOneMenu  id="selcCursodoc" style="width: 100%;" 
+                                                                  converter="#{T300CursoConverter}"
+                                                                  value="#{cadastrar.t300CursoSeld}" >
+                                                    <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
+                                                    <f:selectItems value="#{cadastrar.t300ListSelds}" 
+                                                                   var="t300" 
+                                                                   itemLabel="#{t300.nome}" 
+                                                                   itemValue="#{t300}"  />
+                                                    <p:ajax event="change" update="btCurs" />
+                                                </p:selectOneMenu>
+
+                                            </div>
+                                            <div class="col-xs-1">
+                                                <p:commandButton title="Adiciona curso para o Docente" styleClass="ui-priority-primary"  
+                                                                 id="btCurs" value="+" rendered="#{ cadastrar.t300CursoSeld != null}">
+                                                    <p:ajax listener="#{cadastrar.addT300Curso}" update="tblOper"/>
+                                                </p:commandButton>
+                                            </div>
+                                            <div class="col-xs-5" style="border-top: 1px solid #eee;border-bottom: 1px solid #eee;">
+
+                                                <h:form id="tblOper">
+                                                    <p:dataTable  id="tbCurses" 
+                                                                  styleClass="clean text-center"  
+                                                                  value="#{cadastrar.t400T300DocenteList}"
+                                                                  emptyMessage="Nenhum curso cadastrado"
+                                                                  var="t400T300" >
+
+                                                        <p:column headerText="Nome Curso" >
+                                                            <h:outputText value="#{t400T300.t300CursoId.nome}" />
+                                                        </p:column>
+                                                    </p:dataTable>
+
+                                                </h:form>
                                             </div>
                                         </div>
 
@@ -550,6 +592,15 @@
                                             <div class="col-xs-4">
                                                 <h:outputLabel styleClass="oLPortf" value="Formação/Capacitação/Experiência Pedagógica" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.formacaoCapacitExperPedagogica}" >
+                                                    <f:selectItem itemLabel="Selecione"  />
+                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
+                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
+                                                    <p:ajax event="change" />
+                                                </p:selectOneMenu> 
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <h:outputLabel styleClass="oLPortf" value="Pertence a NDE?" />
+                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.pertenceNde}" >
                                                     <f:selectItem itemLabel="Selecione"  />
                                                     <f:selectItem itemLabel="SIM" itemValue="SIM" />
                                                     <f:selectItem itemLabel="NÃO" itemValue="NAO" />
@@ -682,166 +733,151 @@
                                                 <div class="col-xs-5">
                                                     <h:inputText value="#{cadastrar.t400NovoDocente.qntMediaDisciplinasDoisAnos}">
                                                         <p:ajax event="change" />
-
                                                     </h:inputText>
-
                                                 </div>
-
-
                                             </div>
                                         </div>
 
                                         <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Artigos Periódicos na Área" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.artigosPublicadosArea}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Artigos Periódicos na Área" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.artigosPublicadosArea}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Artigos Periódicos Outras Área" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.artigosPublicadosoOutrasAreas}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Artigos Periódicos Outras Área" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.artigosPublicadosoOutrasAreas}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Livros ou Capítulos na Área" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.livrosPublicadosArea}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                            </div>
-
-                                        </div>
+                                        </div>  
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Livros ou Capítulos em Outras Áreas" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.livrosPublicadosoOutrasAreas}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Livros ou Capítulos na Área" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.livrosPublicadosArea}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.traducCapArtPublicados}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Livros ou Capítulos em Outras Áreas" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.livrosPublicadosoOutrasAreas}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados Anais Resumo" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.trabalhosPublicadosoAnaisResumo}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                            </div>
+                                        </div> 
 
-
-                                        </div>   
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados Anais Completo" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.trabalhosPublicadosAnaisCompleto}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.traducCapArtPublicados}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Livros Publicados na Área" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.livrosPublicadosArea}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Livros Publicados Outras Área" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.livrosPublicadosoOutrasAreas}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados Anais Resumo" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.trabalhosPublicadosoAnaisResumo}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
 
-                                        </div>
+                                                </div>
+                                            </div>
+                                        </div> 
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Tradução de Artigos" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.traducCapArtPublicados}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Trabalhos Publicados Anais Completo" />
+                                                </div>
+                                                <div class="col-xs-5">
+
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.trabalhosPublicadosAnaisCompleto}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Tradução de Artigos" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.traducCapArtPublicados}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
                                         </div>
-
                                         <p class="formulario space2">PRODUÇÕES (Últimos 3 anos)</p>
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Propriedade Intelectual Depositada" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.propriedadeIntelectualDepositada}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Propriedade Intelectual Depositada" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.propriedadeIntelectualDepositada}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Propriedade Intelectual Registrada" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.propriedadeIntelectualRegistrada}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Propriedade Intelectual Registrada" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.propriedadeIntelectualRegistrada}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Projetos/Produções Artísticas e Culturais" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.projProducTecArtisticaCultural}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                            </div>
-
-                                        </div>
+                                        </div> 
                                         <div class="row">
-                                            <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Produção Didático-Pedagógica" />
-                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.prodDidaticoPedagogica}" >
-                                                    <f:selectItem itemLabel="Selecione"  />
-                                                    <f:selectItem itemLabel="SIM" itemValue="SIM" />
-                                                    <f:selectItem itemLabel="NÃO" itemValue="NAO" />
-                                                    <p:ajax event="change" />
-                                                </p:selectOneMenu> 
-                                                <i style="color: #666; font-size: 80%;" >
-                                                    (Publicada ou não)
-                                                </i>
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Projetos/Produções Artísticas e Culturais" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.projProducTecArtisticaCultural}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                </div>
                                             </div>
-
-                                        </div>   
-
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-7">
+                                                    <h:outputLabel styleClass="oLPortf" value="Produção Didático-Pedagógica" />
+                                                </div>
+                                                <div class="col-xs-5">
+                                                    <h:inputText value="#{cadastrar.t400NovoDocente.prodDidaticoPedagogica}">
+                                                        <p:ajax event="change" />
+                                                    </h:inputText>
+                                                    <i style="color: #666; font-size: 80%;" >
+                                                        (Publicada ou não)
+                                                    </i>
+                                                </div>
+                                            </div>
+                                        </div> 
                                         <div class="row space5">
                                             <div class="col-xs-3 col-xs-offset-3">
                                                 <p:commandButton value="Inserir" 
@@ -879,7 +915,8 @@
                                                     <p:rowToggler />
                                                 </p:column>
                                                 <p:column headerText="Nome" 
-                                                          styleClass="colunaTab">
+                                                          styleClass="colunaTab"
+                                                          style="font-size: 9pt">
                                                     #{t400Doc.nome}
                                                 </p:column>
                                                 <p:column headerText="IES"
@@ -903,122 +940,190 @@
                                                     #{t400Doc.t900UsuarioId.nomeReduzido}
                                                 </p:column>
                                                 <p:rowExpansion >
-                                                     
                                                     <h:form id="infoCli" >
-                                                        <div class="container">
-                                                            <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Artigos Periódicos na Área" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada} 
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Artigos Periódicos Outras Área" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Livros ou Capítulos na Área" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada} 
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Livros ou Capítulos em Outras Áreas" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada} 
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Trabalhos Publicados" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada} 
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Trabalhos Publicados Anais Resumo" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-
-
-                                                            </div>   
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Trabalhos Publicados Anais Completo" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Livros Publicados na Área" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada} 
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Livros Publicados Outras Área" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Tradução de Artigos" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-                                                            </div>
-
-                                                            <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Propriedade Intelectual Depositada" />
-                                                                    #{t400Doc.propriedadeIntelectualDepositada}
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Propriedade Intelectual Registrada" />
-                                                                    #{t400Doc.propriedadeIntelectualRegistrada}
-                                                                </div>
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Projetos/Produções Artísticas e Culturais" />
-                                                                    #{t400Doc.projProducTecArtisticaCultural}
-                                                                </div>
-
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-xs-4">
-                                                                    <h:outputLabel styleClass="oLVisao" value="Produção Didático-Pedagógica" />
-                                                                    <i style="color: #666; font-size: 80%;" >
-                                                                        (Publicada ou não)
-                                                                    </i>
-                                                                    #{t400Doc.prodDidaticoPedagogica}
+                                                        <div class="row">
+                                                            <div class="col-xs-4">
+                                                                <p:dataTable
+                                                                    style="font-size: 8pt; "
+                                                                    value="#{t400Doc.t400t300docentesList}"
+                                                                    styleClass="bar"
                                                                     
-                                                                </div>
+                                                                    var="t400t300"
+                                                                    rows="15"
+                                                                    paginatorPosition="bottom">
+                                                                    <p:column headerText="Curso do Docente" 
+                                                                              styleClass="colunaTabInterna">
+                                                                        #{t400t300.t300CursoId.nome} 
+                                                                    </p:column>
 
-                                                            </div>   
+                                                                </p:dataTable>
+                                                            </div>
+                                                            <div class="col-xs-7">
+                                                                <div class="row">
+                                                                    <div class="col-xs-7">
+                                                                        <h:outputText 
+                                                                            style="font-size: 9pt" value="Data da Admissão:"/>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        <h:outputText value="#{t400Doc.dtAdmissao}">
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                                                        </h:outputText>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-7">
+                                                                        <h:outputText 
+                                                                            style="font-size: 9pt" value="Formação/Capacitação/Experiência Pedagógica?"/>
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        #{t400Doc.formacaoCapacitExperPedagogica}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-7">
+                                                                        <h:outputText 
+                                                                            style="font-size: 9pt" value="Pertencente a NDE?"/>
+                                                                        
+                                                                    </div>
+                                                                    <div class="col-xs-4">
+                                                                        #{t400Doc.pertenceNde}
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                            
                                                         </div>
-                                                   
-                                                    <p:dataTable
-                                                        style="font-size: 8pt;"
-                                                        id="tbDoc"
-                                                        value="#{t400Doc}"
-                                                        var="t400"
-                                                        rows="15"
-                                                        paginatorPosition="bottom"
-                                                        >
-                                                        <p:column headerText="Qnt Discip" 
-                                                                  styleClass="colunaTab">
-                                                            #{t400Doc.qntDisciplinas}
-                                                        </p:column>
-                                                        <p:column headerText="CH.Aula" 
-                                                                  styleClass="colunaTab">
-                                                            #{t400Doc.cargaHorariaEmAula}
-                                                        </p:column>
-                                                        <p:column headerText="CH.Semanal" 
-                                                                  styleClass="colunaTab">
-                                                            #{t400Doc.cargaHorariaSemanal}
-                                                        </p:column>
-                                                        <p:column headerText="CH Ativ.Compl" 
-                                                                  styleClass="colunaTab">
-                                                            #{t400Doc.cargaHorariaAtivComplementar}
-                                                        </p:column>
-                                                        <p:column headerText="CH Outros" 
-                                                                  styleClass="colunaTab">
-                                                            #{t400Doc.cargaHorariaOutrosCursos}
-                                                        </p:column>
-                                                        
-                                                    </p:dataTable>
+                                                        <p:dataTable
+                                                            style="font-size: 8pt;"
+                                                            value="#{t400Doc}"
+                                                            styleClass="bar"
+                                                            rows="15"
+                                                            paginatorPosition="bottom">
+                                                            <p:column headerText="Tempo Magisterio ou Educ. Profissional (Anos)" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.tempoMagistExpEducacao} 
+                                                            </p:column>
+                                                            <p:column headerText="Tempo Fora Magistério (Exp. Profissional) (Anos)" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.tempoForaMagist}
+                                                            </p:column>
+                                                            <p:column headerText="Média de disciplinas (Últimos 2 anos)" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.qntMediaDisciplinasDoisAnos}
+                                                            </p:column>
+                                                        </p:dataTable>
+                                                        <p:dataTable
+                                                            style="font-size: 8pt;"
+                                                            id="tbDoc"
+                                                            value="#{t400Doc}"
+                                                            var="t400"
+                                                            rows="15"
+                                                            paginatorPosition="bottom">
+                                                            <p:column headerText="Número de Alunos do docente" 
+                                                                      styleClass="colunaTabInterna"
+                                                                      style="width: 80pt">
+                                                                #{t400Doc.qntAlunos}
+                                                            </p:column>
+                                                            <p:column headerText="Qnt Discip" 
+                                                                      styleClass="colunaTab">
+                                                                #{t400Doc.qntDisciplinas}
+                                                            </p:column>
+                                                            <p:column headerText="CH.Aula" 
+                                                                      styleClass="colunaTab">
+                                                                #{t400Doc.cargaHorariaEmAula}
+                                                            </p:column>
+                                                            <p:column headerText="CH.Semanal" 
+                                                                      styleClass="colunaTab">
+                                                                #{t400Doc.cargaHorariaSemanal}
+                                                            </p:column>
+                                                            <p:column headerText="CH Ativ.Compl" 
+                                                                      styleClass="colunaTab">
+                                                                #{t400Doc.cargaHorariaAtivComplementar}
+                                                            </p:column>
+                                                            <p:column headerText="CH Outros" 
+                                                                      styleClass="colunaTab">
+                                                                #{t400Doc.cargaHorariaOutrosCursos}
+                                                            </p:column>
+
+                                                        </p:dataTable>
+                                                        <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
+                                                        <p:dataTable
+                                                            style="font-size: 8pt;"
+                                                            value="#{t400Doc}"
+                                                            var="t400"
+                                                            rows="15"
+                                                            paginatorPosition="bottom">
+                                                            <p:column headerText="Artigos Periódicos na Área" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.artigosPublicadosArea} 
+                                                            </p:column>
+                                                            <p:column headerText="Artigos Periódicos Outras Área" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.artigosPublicadosoOutrasAreas}
+                                                            </p:column>
+                                                            <p:column headerText="Livros ou Capítulos na Área" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.livrosPublicadosArea}
+                                                            </p:column>
+                                                            <p:column headerText="Livros ou Capítulos em Outras Áreas" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.livrosPublicadosoOutrasAreas}
+                                                            </p:column>
+
+
+
+                                                        </p:dataTable>
+                                                        <p:dataTable
+                                                            style="font-size: 8pt;"
+                                                            value="#{t400Doc}"
+                                                            var="t400"
+                                                            rows="15"
+                                                            paginatorPosition="bottom">
+                                                            <p:column headerText="Tradução de Artigos" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.traducCapArtPublicados}
+                                                            </p:column>
+                                                            <p:column headerText="Trabalhos Publicados Anais Resumo" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.trabalhosPublicadosoAnaisResumo} 
+                                                            </p:column>
+                                                            <p:column headerText="Trabalhos Publicados Anais Completo" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.trabalhosPublicadosAnaisCompleto}
+                                                            </p:column>
+                                                            <p:column headerText="Trabalhos Publicados" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.traducCapArtPublicados}
+                                                            </p:column>
+
+                                                        </p:dataTable>
+                                                        <p class="formulario space2">PRODUÇÕES (Últimos 3 anos)</p>
+                                                        <p:dataTable
+                                                            style="font-size: 8pt;"
+                                                            value="#{t400Doc}"
+                                                            var="t400"
+                                                            rows="15"
+                                                            paginatorPosition="bottom">
+
+                                                            <p:column headerText="Propriedade Intelectual Depositada" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.propriedadeIntelectualDepositada} 
+                                                            </p:column>
+                                                            <p:column headerText="Propriedade Intelectual Registrada" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.propriedadeIntelectualRegistrada}
+                                                            </p:column>
+                                                            <p:column headerText="Projetos/Produções Artísticas e Culturais" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.projProducTecArtisticaCultural}
+                                                            </p:column>
+                                                            <p:column headerText="Produção Didático-Pedagógica" 
+                                                                      styleClass="colunaTabInterna">
+                                                                #{t400Doc.prodDidaticoPedagogica}
+                                                            </p:column>
+
+                                                        </p:dataTable>
+
                                                     </h:form>
                                                 </p:rowExpansion>
 
@@ -1066,7 +1171,7 @@
                                                                   converter="#{T300CursoConverter}"
                                                                   value="#{cadastrar.t300CursoSeld}" >
                                                     <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
-                                                    <f:selectItems value="#{cadastrar.t300List}" 
+                                                    <f:selectItems value="#{cadastrar.t300ListSelds}" 
                                                                    var="t300" 
                                                                    itemLabel="#{t300.nome}" 
                                                                    itemValue="#{t300}"  />
@@ -1210,7 +1315,7 @@
                                                           styleClass="colunaTab">
                                                     #{t600.qntDisciplina}
                                                 </p:column>
-                                                 <p:column headerText="Usuário"
+                                                <p:column headerText="Usuário"
                                                           styleClass="colunaTab">
                                                     #{t600.t900UsuarioId.nomeReduzido}
                                                 </p:column>
@@ -1248,7 +1353,7 @@
                                                                    var="t200" 
                                                                    itemLabel="#{t200.nome} - #{t200.campus}" 
                                                                    itemValue="#{t200}"  />
-                                                     <p:ajax update="selcCursoCoord" 
+                                                    <p:ajax update="selcCursoCoord" 
                                                             event="change" 
                                                             listener="#{cadastrar.onSelectIes()}" 
                                                             />
@@ -1264,11 +1369,11 @@
                                                                   converter="#{T300CursoConverter}"
                                                                   value="#{cadastrar.t300CursoSeld}" >
                                                     <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
-                                                    <f:selectItems value="#{cadastrar.t300List}" 
+                                                    <f:selectItems value="#{cadastrar.t300ListSelds}" 
                                                                    var="t300" 
                                                                    itemLabel="#{t300.nome}" 
                                                                    itemValue="#{t300}"  />
-                                                     <p:ajax update="selcDocenteCoord" 
+                                                    <p:ajax update="selcDocenteCoord" 
                                                             event="change" 
                                                             listener="#{cadastrar.onSelectDocente}" 
                                                             />
@@ -1382,7 +1487,7 @@
                                                           styleClass="colunaTab">
                                                     #{t500.t300CursoId.nome} 
                                                 </p:column>
-                                                 <p:column headerText="Usuário"
+                                                <p:column headerText="Usuário"
                                                           styleClass="colunaTab">
                                                     #{t500.t900UsuarioId.nomeReduzido}
                                                 </p:column>
@@ -1395,7 +1500,7 @@
                                                         rows="15"
                                                         paginatorPosition="bottom"
                                                         >
-                                                       
+
                                                         <p:column headerText="Ensino a Distancia" 
                                                                   style="width: 50px;"
                                                                   styleClass="colunaTab">
@@ -1416,8 +1521,8 @@
                                                                   style="width: 50px;"
                                                                   styleClass="colunaTab">
                                                             <h:outputText value="#{t500.dtCadastro}">
-                                                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                                                    </h:outputText>
+                                                                <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                                            </h:outputText>
                                                         </p:column>
                                                     </p:dataTable>
                                                 </p:rowExpansion>
