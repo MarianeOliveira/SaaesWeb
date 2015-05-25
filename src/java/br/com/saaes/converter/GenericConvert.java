@@ -14,10 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 
-/**
- *
- * @author Jean
- */
+
 public class GenericConvert implements Converter {
 
     private final Class<?> clazz;

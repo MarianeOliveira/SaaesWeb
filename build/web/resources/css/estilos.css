@@ -301,6 +301,9 @@ width: 200px;
     text-align: center;
     font: bold;
 }
+.completed {
+    background: pink;
+}
 .ui-column-title{
     font-size: 12px;
     

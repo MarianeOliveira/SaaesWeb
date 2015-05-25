@@ -1,6 +1,8 @@
 package br.com.saaes.app.util;
 
 import br.com.saaes.api.filter.FiltroJPA;
+import br.com.saaes.facade.FacUtil;
+import br.com.saaes.modelo.T900Usuario;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,6 +81,10 @@ public class JsfUtil {
     public static Date getInstante(){
         Calendar calResultado = Calendar.getInstance();
         return calResultado.getTime();
+    }
+
+    public static T900Usuario getUsuario() {
+        return (T900Usuario) FacUtil.getSession().getAttribute("usuario");
     }
 
 }

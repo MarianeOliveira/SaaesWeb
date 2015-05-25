@@ -3,6 +3,7 @@ package br.com.saaes.jsf.md;
 import br.com.saaes.app.util.JsfUtil;
 import br.com.saaes.app.util.TabViewMB;
 import br.com.saaes.dao.DAO;
+import br.com.saaes.facade.FacUtil;
 import br.com.saaes.modelo.T200ies;
 import br.com.saaes.modelo.T300cursos;
 import br.com.saaes.modelo.T400docente;
@@ -23,14 +24,13 @@ import javax.persistence.EntityManager;
  *
  * @author
  */
-@ManagedBean(name = "avaliacao")
+@ManagedBean(name = "busca")
 @ViewScoped
-public class Avaliacao extends TabViewMB implements Serializable {
+public class Busca extends TabViewMB implements Serializable {
 
     EntityManager em;
-    private T900Usuario usuario = JsfUtil.getUsuario();
+    private T900Usuario usuario = (T900Usuario) FacUtil.getSession().getAttribute("usuario");
 
-    private boolean avaliar;
     private Integer abaAtiva = 0;
     private List<T200ies> t200list;
     private List<T300cursos> t300List;
@@ -45,15 +45,12 @@ public class Avaliacao extends TabViewMB implements Serializable {
 
     private T700avaliacao t700NovaAvaliacao;
 
-    public Avaliacao() {
-        this.avaliar = false;
-    }
-
     @PostConstruct
     public void init() {
         this.em = JPAUtil.getEm();
         this.t300List = DAO.getFromNamedQuery(T300cursos.FIND_ALL, T300cursos.class, em);
         this.t200list = DAO.getFromNamedQuery(T200ies.FIND_ALL, T200ies.class, em);
+        //this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_ALL, T700avaliacao.class, em);
 
         t200IesSeld = new T200ies();
         t300CursoSeld = new T300cursos();
@@ -64,19 +61,22 @@ public class Avaliacao extends TabViewMB implements Serializable {
     /**
      * Seleciona IES
      *
+     * @param event
      */
     public void onSelectIes() {
         this.t300ListSelds = DAO.getFromNamedQuery(T300cursos.FIND_IES, T300cursos.class, em, t200IesSeld);
+        this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T200, T700avaliacao.class, em, t200IesSeld);
     }
 
     /**
      * Seleciona Avaliacao
      *
+     * @param event
      */
     public void onSelectAvaliacao() {
         try {
             this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T300, T700avaliacao.class, em, t300CursoSeld);
-            this.avaliar = t700Avaliacaolist.isEmpty();
+//            t500CoordenadoCurso = t300CursoSeld.getT500coordenador();
         } catch (Exception e) {
         }
     }
@@ -85,12 +85,7 @@ public class Avaliacao extends TabViewMB implements Serializable {
      * Insere novo Coordenador
      */
     public void realizarAvaliacao() {
-        t700NovaAvaliacao = Operacional.criaAvaliacao(t300CursoSeld);
-        salvaAvaliação();
-    }
-    
-    public void salvaAvaliação(){
-     try {
+        try {
             if (null != t700NovaAvaliacao) {
                 em.getTransaction().begin();
 
@@ -99,15 +94,14 @@ public class Avaliacao extends TabViewMB implements Serializable {
 
                 this.t700Avaliacaolist.add(t700NovaAvaliacao);
                 t700NovaAvaliacao = new T700avaliacao();
-                JsfUtil.addSuccessMessage("Avaliação realizada com sucesso!");
+                JsfUtil.addSuccessMessage("Coordenandor inserido com sucesso!");
 
             } else {
-                JsfUtil.addAlertMessage("Erro ao efetuar avaliação!");
+                JsfUtil.addAlertMessage("Informe um Nome para cadastrar");
             }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage("Não foi possível efetuar avaliação!");
+            JsfUtil.addErrorMessage("Não foi possível inserir novo Coordenador!");
         }
-    
     }
 
     public EntityManager getEm() {
@@ -212,14 +206,6 @@ public class Avaliacao extends TabViewMB implements Serializable {
 
     public void setT500CoordenadoCurso(T500coordenador t500CoordenadoCurso) {
         this.t500CoordenadoCurso = t500CoordenadoCurso;
-    }
-
-    public boolean isAvaliar() {
-        return avaliar;
-    }
-
-    public void setAvaliar(boolean avaliar) {
-        this.avaliar = avaliar;
     }
 
 }

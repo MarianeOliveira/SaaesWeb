@@ -86,14 +86,14 @@
                     <div class="row">
                         <div class="col-xs-offset-6 col-md-offset-7 col-lg-offset-7 pull-right" 
                              onclick="window.location.href = '#{application.contextPath}'">
+                            
                             <i style="color: #DDDDDD; font-size: 90%;" >
                             Sistema de Auxílio a Avaliadores do Ensino Superior 
                             </i>
                             <i style="color: #DDDDDD; font-size: 90%;">
-                                <!--<h:outputText rendered="#{not empty inicial.usuario.nomeReduzido}">-->
-                                    - #{inicial.usuario.nomeReduzido == null ? inicial.usuario.nome :inicial.usuario.nomeReduzido} 
-                                <!--</h:outputText>-->
+                                <h:outputText value=" - #{inicial.usuario.nomeReduzido == null ? inicial.usuario.nome :inicial.usuario.nomeReduzido} " />
                             </i>
+                            
                             
                         </div>
                     </div>

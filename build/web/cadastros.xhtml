@@ -235,7 +235,7 @@
                                         <div style="border-top: 1px solid #aaa; " class="space4"/>
                                         <div class="row">
                                             <div class="col-xs-3">
-                                                <h:outputText value="Duração(anos) " />
+                                                <h:outputText value="Duração(Períodos) " />
                                                 <p:inputText style="width: 90%;" 
                                                              value="#{cadastrar.t300NovoCurso.duracaoCurso}">
                                                     <p:ajax event="change" />
@@ -358,7 +358,7 @@
                                                 <f:facet name="header">
                                                     Cursos Cadastrados
                                                 </f:facet>
-                                                <p:column style="width:15px">
+                                                <p:column style="width:2%">
                                                     <p:rowToggler />
                                                 </p:column>
                                                 <p:column headerText="Curso" 
@@ -599,7 +599,7 @@
                                                 </p:selectOneMenu> 
                                             </div>
                                             <div class="col-xs-4">
-                                                <h:outputLabel styleClass="oLPortf" value="Pertence a NDE?" />
+                                                <h:outputLabel styleClass="oLPortf" value="Pertence ao Núcleo Docente Estruturante(NDE)?" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t400NovoDocente.pertenceNde}" >
                                                     <f:selectItem itemLabel="Selecione"  />
                                                     <f:selectItem itemLabel="SIM" itemValue="SIM" />
@@ -911,7 +911,7 @@
                                                 <f:facet name="header">
                                                     Docentes Cadastrados
                                                 </f:facet>
-                                                <p:column style="width:15px">
+                                                <p:column style="width:2%">
                                                     <p:rowToggler />
                                                 </p:column>
                                                 <p:column headerText="Nome" 
@@ -947,7 +947,7 @@
                                                                     style="font-size: 8pt; "
                                                                     value="#{t400Doc.t400t300docentesList}"
                                                                     styleClass="bar"
-                                                                    
+
                                                                     var="t400t300"
                                                                     rows="15"
                                                                     paginatorPosition="bottom">
@@ -966,7 +966,7 @@
                                                                     </div>
                                                                     <div class="col-xs-4">
                                                                         <h:outputText value="#{t400Doc.dtAdmissao}">
-                                                                            <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                                                            <f:convertDateTime pattern="dd/MM/yyyy" />
                                                                         </h:outputText>
                                                                     </div>
                                                                 </div>
@@ -983,15 +983,15 @@
                                                                     <div class="col-xs-7">
                                                                         <h:outputText 
                                                                             style="font-size: 9pt" value="Pertencente a NDE?"/>
-                                                                        
+
                                                                     </div>
                                                                     <div class="col-xs-4">
                                                                         #{t400Doc.pertenceNde}
                                                                     </div>
                                                                 </div>
-                                                                
+
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <p:dataTable
                                                             style="font-size: 8pt;"
@@ -1016,7 +1016,7 @@
                                                             style="font-size: 8pt;"
                                                             id="tbDoc"
                                                             value="#{t400Doc}"
-                                                            var="t400"
+                                                            
                                                             rows="15"
                                                             paginatorPosition="bottom">
                                                             <p:column headerText="Número de Alunos do docente" 
@@ -1050,7 +1050,7 @@
                                                         <p:dataTable
                                                             style="font-size: 8pt;"
                                                             value="#{t400Doc}"
-                                                            var="t400"
+                                                            
                                                             rows="15"
                                                             paginatorPosition="bottom">
                                                             <p:column headerText="Artigos Periódicos na Área" 
@@ -1265,71 +1265,76 @@
                                     </p:fieldset> 
 
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p:dataTable
-                                                id="tbBiblio"
-                                                value="#{cadastrar.t600BibliList}"
-                                                var="t600"
-                                                styleClass="clean"
-                                                widgetVar="tbTes"
-                                                rows="15"
-                                                paginatorPosition="bottom"
-                                                emptyMessage="Nenhum curso cadastrado."
-                                                >
-                                                <p:ajax event="rowSelect"  update="@form" />
-                                                <f:facet name="header">
-                                                    Docentes Cadastrados
-                                                </f:facet>
-                                                <p:column headerText="Curso" 
-                                                          style="width: 12%"
-                                                          styleClass="colunaTab">
-                                                    #{t600.t300CursoId.nome}
-                                                </p:column>
-                                                <p:column headerText="IES" 
-                                                          style="width: 12%"
-                                                          styleClass="colunaTab">
-                                                    #{t600.t300CursoId.t200IesId.nome}
-                                                </p:column>
-                                                <p:column headerText="Periódicos"
-                                                          sortBy="#{t600.periodico}"
-                                                          styleClass="colunaTab">
-                                                    #{t600.periodico}
-                                                </p:column>
-                                                <p:column headerText="Qnt básica"
-                                                          styleClass="colunaTab">
-                                                    #{t600.qntBasica}
-                                                </p:column>
-                                                <p:column headerText="Qnt completa"
-                                                          styleClass="colunaTab">
-                                                    #{t600.qntCompleta}
-                                                </p:column>
-                                                <p:column headerText="Média Básica"
-                                                          styleClass="colunaTab">
-                                                    #{t600.mediaBasica}
-                                                </p:column>
-                                                <p:column headerText="Média completa"
-                                                          styleClass="colunaTab">
-                                                    #{t600.mediaCompleta}
-                                                </p:column>
-                                                <p:column headerText="Qnt p disciplina"
-                                                          styleClass="colunaTab">
-                                                    #{t600.qntDisciplina}
-                                                </p:column>
-                                                <p:column headerText="Usuário"
-                                                          styleClass="colunaTab">
-                                                    #{t600.t900UsuarioId.nomeReduzido}
-                                                </p:column>
-                                                <p:column headerText="Dt Cadastro"
-                                                          styleClass="colunaTab">
-                                                    <h:outputText value="#{t600.dtCadastro}">
-                                                        <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
-                                                    </h:outputText>
+                                        <p:dataTable
+                                            id="tbBiblio"
+                                            value="#{cadastrar.t600BibliList}"
+                                            var="t600"
+                                            styleClass="clean"
+                                            widgetVar="tbTes"
+                                            rows="15"
+                                            paginatorPosition="bottom"
+                                            emptyMessage="Nenhum curso cadastrado."
+                                            >
+                                            <p:ajax event="rowSelect"  update="@form" />
+                                            <f:facet name="header">
+                                                Docentes Cadastrados
+                                            </f:facet>
+                                            <p:column headerText="Curso" 
+                                                      styleClass="colunaTab">
+                                                #{t600.t300CursoId.nome}
+                                            </p:column>
+                                            <p:column headerText="IES" 
 
-                                                </p:column>
+                                                      styleClass="colunaTab">
+                                                #{t600.t300CursoId.t200IesId.nome}
+                                            </p:column>
+                                            <p:column headerText="Periódicos"
+                                                      sortBy="#{t600.periodico}"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.periodico}
+                                            </p:column>
+                                            <p:column headerText="Qnt básica"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.qntBasica}
+                                            </p:column>
+                                            <p:column headerText="Qnt completa"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.qntCompleta}
+                                            </p:column>
+                                            <p:column headerText="Média Básica"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.mediaBasica}
+                                            </p:column>
+                                            <p:column headerText="Média completa"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.mediaCompleta}
+                                            </p:column>
+                                            <p:column headerText="Qnt p disciplina"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.qntDisciplina}
+                                            </p:column>
+                                            <p:column headerText="Usuário"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                #{t600.t900UsuarioId.nomeReduzido}
+                                            </p:column>
+                                            <p:column headerText="Dt Cadastro"
+                                                      style="width: 12%"
+                                                      styleClass="colunaTab">
+                                                <h:outputText value="#{t600.dtCadastro}">
+                                                    <f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+                                                </h:outputText>
+
+                                            </p:column>
 
 
-                                            </p:dataTable>
-                                        </div>
+                                        </p:dataTable>
 
                                     </div>
                                 </p:tab>
@@ -1408,7 +1413,7 @@
                                         <div style="border-top: 1px solid #aaa; " class="space4"/>
 
                                         <div class="row">
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-3">
                                                 <h:outputLabel styleClass="oLPortf" value="Ensino Tecnico?" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t500NovoCoord.ensTec}" >
                                                     <f:selectItem itemLabel="Selecione"  />
@@ -1417,7 +1422,7 @@
                                                     <p:ajax event="change" />
                                                 </p:selectOneMenu> 
                                             </div>
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-3">
                                                 <h:outputLabel styleClass="oLPortf" value="Ensino Superior?" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t500NovoCoord.ensSuper}" >
                                                     <f:selectItem itemLabel="Selecione"  />
@@ -1426,12 +1431,22 @@
                                                     <p:ajax event="change" />
                                                 </p:selectOneMenu> 
                                             </div>
-                                            <div class="col-xs-4">
+                                            <div class="col-xs-3">
                                                 <h:outputLabel styleClass="oLPortf" value="Ensino a Distância?" />
                                                 <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t500NovoCoord.ensDist}" >
                                                     <f:selectItem itemLabel="Selecione"  />
                                                     <f:selectItem itemLabel="SIM" itemValue="SIM" />
                                                     <f:selectItem itemLabel="NÃO" itemValue="NAO" />
+                                                    <p:ajax event="change" />
+                                                </p:selectOneMenu> 
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <h:outputLabel styleClass="oLPortf" value="Atuação do Coordenador?" />
+                                                <p:selectOneMenu style="width: 98%;" value= "#{cadastrar.t500NovoCoord.t901Atuacao}"
+                                                                 converter="#{T901ConceitosConverter}">
+                                                    <f:selectItem itemLabel="Selecione"  />
+                                                    <f:selectItems value="#{cadastrar.t901ConceitosList}" var="t901" 
+                                                                   itemLabel="#{t901.descricao}" itemValue="#{t901}" />
                                                     <p:ajax event="change" />
                                                 </p:selectOneMenu> 
                                             </div>
@@ -1472,7 +1487,7 @@
                                                 <f:facet name="header">
                                                     Docentes Cadastrados
                                                 </f:facet>
-                                                <p:column style="width:5px">
+                                                <p:column style="width:1%">
                                                     <p:rowToggler />
                                                 </p:column>
                                                 <p:column headerText="Nome" 
@@ -1501,6 +1516,11 @@
                                                         paginatorPosition="bottom"
                                                         >
 
+                                                        <p:column headerText="Atuação do Coordenador" 
+                                                                  style="width: 50px;"
+                                                                  styleClass="colunaTab">
+                                                            #{t500.t901Atuacao.descricao}
+                                                        </p:column>
                                                         <p:column headerText="Ensino a Distancia" 
                                                                   style="width: 50px;"
                                                                   styleClass="colunaTab">

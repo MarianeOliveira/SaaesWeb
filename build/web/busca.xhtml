@@ -1,83 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:poue="http://primefaces.org/ui/extensions"
-      >
+      xmlns:pp="http://java.sun.com/jsf/composite/personalizado">
 
+    <ui:composition template="/template/reduzido.xhtml">
 
-    <h:body>
-        <ui:composition template="/template/reduzido.xhtml">
-            <ui:define name="estilos-extras">
-                .nome-cliente {font-size:11px;line-height: 25px;}
-            </ui:define>
-            <ui:define name="corpo">
+        <!--Corpo da tela de relatório-->
 
-<!--                <div class="row ">
-                    <h:form id="formPrincipal">
-                        <p:growl id="messages"/>
-                        <div style="min-height: 730px;">
+        <ui:define name="corpo">
 
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <h:outputText value="Instituição " />
-                                </div>
-                                <div class="col-xs-8">
-                                    <p:selectOneMenu  value="#{cadastrar.t200IesSeld}" style="width: 60%;" 
-                                                      converter="#{t200IesConverter}" >
-                                        <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
-                                        <f:selectItems value="#{cadastrar.t200list}" 
-                                                       var="t200" 
-                                                       itemLabel="#{t200.nome} - #{t200.campus}" 
-                                                       itemValue="#{t200}"  />
-                                        <p:ajax update="selcCursoCoord" 
-                                                event="change" 
-                                                listener="#{cadastrar.onSelectIes}" 
-                                                />
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <h:outputText value="Curso " />
-                                </div>
-                                <div class="col-xs-8">
-                                    <p:selectOneMenu  id="selcCursoCoord" style="width: 50%;" 
-                                                      converter="#{T300CursoConverter}"
-                                                      value="#{cadastrar.t300CursoSeld}" >
-                                        <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
-                                        <f:selectItems value="#{cadastrar.t300List}" 
-                                                       var="t300" 
-                                                       itemLabel="#{t300.nome}" 
-                                                       itemValue="#{t300}"  />
-                                        <p:ajax event="change" />
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
+            <h:form id="corpo" >
+                <p:growl id="messages" showDetail="true" sticky="true" />  
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h:outputText value="Instituição " />
+                    </div>
+                    <div class="col-xs-8">
+                        <p:selectOneMenu  value="#{busca.t200IesSeld}" style="width: 60%;" 
+                                          converter="#{t200IesConverter}" >
+                            <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
+                            <f:selectItems value="#{busca.t200list}" 
+                                           var="t200" 
+                                           itemLabel="#{t200.nome} - #{t200.campus}" 
+                                           itemValue="#{t200}"  />
+                            <p:ajax update="selcCurso cursosAvaliacao" 
+                                    event="change" 
+                                    listener="#{busca.onSelectIes}" 
+                                    />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <h:outputText value="Curso " />
+                    </div>
+                    <div class="col-xs-8">
 
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <h:outputText value="Docente" />
-                                </div>
-                                <div class="col-xs-8">
-                                    <p:selectOneMenu  value="#{cadastrar.t500NovoCoord.t400DocenteId}" style="width: 60%;" 
-                                                      converter="#{T400DocenteConverter}" >
-                                        <f:selectItem itemLabel="Selecione a Instituição" noSelectionOption="true"/>
-                                        <f:selectItems value="#{cadastrar.t400DocenteList}" 
-                                                       var="t400" 
-                                                       itemLabel="#{t400.nome} " 
-                                                       itemValue="#{t400}"  />
-                                        <p:ajax event="change" update="dadosDocente"
-                                                />
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
+                        <p:selectOneMenu  id="selcCurso" style="width: 50%;" 
+                                          value="#{busca.t300CursoSeld}" 
+                                          converter="#{t300CursoConverter}">
+                            <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
+                            <f:selectItems value="#{busca.t300ListSelds}" 
+                                           var="t300" 
+                                           itemLabel="#{t300.nome}" 
+                                           itemValue="#{t300}"  />
+                            <p:ajax event="change" update="cursosAvaliacao" listener="#{busca.onSelectAvaliacao()}" />
+                        </p:selectOneMenu>
+                    </div>
+                </div>
+                <h:panelGroup id="cursosAvaliacao">
+                    <div class="row space3">
+                        <p:dataTable
+                            id="tbPrincipal"
+                            value="#{busca.t700Avaliacaolist}"
+                            var="t700"
+                            styleClass="clean"
+                            widgetVar="tbTes"
+                            rows="15"
+                            paginatorPosition="bottom"
+                            emptyMessage="Nenhum curso Avaliado"
+                            >
+                            <p:ajax event="rowSelect"  update="@form" />
+                            <f:facet name="header">
+                                Cursos com Avaliação realizada
+                            </f:facet>
+                            <p:column style="width:4%">
+                                <p:rowToggler />
+                            </p:column>
+                            <p:column headerText="Curso" style="width:350px"
+                                      styleClass="colunaTab">
+                                #{t700.t700avaliacaoPK.t300CursoId.nome}
+                            </p:column>
+                            <p:column headerText="IES" style="width:300px"
+                                      styleClass="colunaTab">
+                                #{t700.t700avaliacaoPK.t300CursoId.t200IesId.nome}
 
-                        </div>
-                    </h:form>
-                </div>-->
-            </ui:define>
-        </ui:composition>
-    </h:body>
+                            </p:column>
+                            <p:column headerText="Turno"
+                                      styleClass="colunaTab">
+                                #{t700.t700avaliacaoPK.t300CursoId.turno}
+                            </p:column>
+                            <p:column headerText="Data Avaliação"
+                                      style="width:100px"
+                                      sortBy="#{t700.dtAvaliacao}"
+                                      styleClass="colunaTab">
+                                <p:outputLabel style="text-align: center;"  value="#{t700.dtAvaliacao}" > 
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </p:outputLabel>
+                            </p:column>
+                            <p:column style="text-align: center" headerText="Conceito" >
+                                <!--<h:graphicImage url="/img/Ok-icon.png" 
+                                style="border:none;" 
+                                title="Todos processos revisados" 
+                                rendered="true"/>-->
+                            </p:column>
+                            <p:rowExpansion  styleClass="corpotela">
+                                <!--resumoAvaliacao é um componente a parte, p acessar segure Ctrl e clique -->
+                                <h:panelGroup id="resumoCurso">
+                                    <pp:resumoAvaliacao t700Avaliacao="#{t700}"/>
+                                </h:panelGroup>
+<!--                                <p:commandButton value="Imprimir Avaliação" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 15px">
+                                    <p:printer target="resumoCurso" />
+                                </p:commandButton>-->
+                            </p:rowExpansion>
+
+                        </p:dataTable>
+                    </div>
+
+                </h:panelGroup>
+            </h:form>
+
+        </ui:define> 
+
+    </ui:composition>
+
 </html>
+
+
+

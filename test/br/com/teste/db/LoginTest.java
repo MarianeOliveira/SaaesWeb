@@ -5,10 +5,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import org.junit.Test;
 
-/**
- *
- * @author f4679646
- */
 public class LoginTest {
     
     public LoginTest() {

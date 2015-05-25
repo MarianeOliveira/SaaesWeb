@@ -14,10 +14,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 
-/**
- *
- * @author f4679646
- */
 @ManagedBean
 public class CadastroUsuario implements Serializable {
 

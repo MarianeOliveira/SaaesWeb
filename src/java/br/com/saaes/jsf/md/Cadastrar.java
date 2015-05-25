@@ -295,7 +295,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 t500NovoCoord = new T500coordenador();
                 t200IesSeld = new T200ies();
                 t300CursoSeld = new T300cursos();
-                t400DocenteList = new ArrayList<>();
+                t400DocenteListSelds = new ArrayList<>();
                 JsfUtil.addSuccessMessage("Coordenandor inserido com sucesso!");
 
             } else {

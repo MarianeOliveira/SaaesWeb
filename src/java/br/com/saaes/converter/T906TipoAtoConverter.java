@@ -4,10 +4,6 @@ import br.com.saaes.modelo.T906tipoato;
 import javax.faces.bean.ManagedBean;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author Jean
- */
 @ManagedBean
 @FacesConverter(forClass = T906tipoato.class)
 
