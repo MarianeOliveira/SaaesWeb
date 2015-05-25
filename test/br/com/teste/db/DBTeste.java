@@ -32,7 +32,7 @@ public class DBTeste {
 
     @Test
     public void cad() {
-        String nome = "Jean Fernandes Correa Costa";
+        String nome = "Sergio Antunes";
         nome = nome.trim();
         String nomeReduzido = "";
         int count = 0;

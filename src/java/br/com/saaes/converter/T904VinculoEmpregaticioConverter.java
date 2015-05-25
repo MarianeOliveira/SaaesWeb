@@ -5,10 +5,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.convert.FacesConverter;
 
-/**
- *
- * @author Jean
- */
 @RequestScoped
 @ManagedBean
 @FacesConverter(forClass = T904vinculoempregaticio.class)

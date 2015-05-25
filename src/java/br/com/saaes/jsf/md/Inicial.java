@@ -9,13 +9,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author f4679646
- */
 @ManagedBean
 public class Inicial implements Serializable {
 

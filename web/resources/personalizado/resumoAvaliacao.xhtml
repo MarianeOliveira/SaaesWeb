@@ -1,0 +1,724 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:composite="http://java.sun.com/jsf/composite"    
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:h="http://java.sun.com/jsf/html"    
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <composite:interface>
+        <composite:attribute name="t700Avaliacao" required="true"/>
+        <composite:attribute name="styleClass" required="false" />
+    </composite:interface>
+
+    <composite:implementation>
+        <p:growl id="message" showDetail="true" />
+
+        <div class="row">
+            <h:panelGroup id="detalhamentoDemanda" layout="block" styleClass="row #{cc.attrs.styleClass} page-container" rendered="#{cc.rendered}">
+                <h:form id="infoAvaliacao" >
+                    <p:growl id="msgSum" showDetail="true" sticky="true" />  
+                    <div class="yesprint">
+
+                        <!--DADOS DO CURSO-->
+
+                        <p class="formulario">DADOS DO CURSO</p>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Nome do Curso:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.nome} "/>                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Instituição:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t200IesId.nome} "/>                               
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Campus:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t200IesId.campus}" />                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Turno:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.turno}" />                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Tipo de Ato:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t906TipoAtoId.descricao}" />                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Tipo de Curso:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t907TipoCursoId.descricao}" />                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <h:outputLabel styleClass="oLPortf" value="Modalidade:" />
+                            </div>
+                            <div class="col-xs-8">
+                                <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t905ModalidadeId.descricao}" />                               
+                            </div>
+                        </div>
+                        <!--DADOS DO DOCENTE-->
+                        <p class="formulario">COORDENADOR</p>
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-12">
+                                <p:dataTable
+                                    id="tbCoord"
+                                    value="#{cc.attrs.t700Avaliacao}"
+                                    styleClass="clean"
+                                    emptyMessage="Nenhum cordenador cadastrado."
+                                    widgetVar="tbCoord"
+                                    rows="15"
+                                    paginatorPosition="bottom"
+                                    >
+                                    <p:ajax event="rowSelect"  update="@form" />
+                                    <p:column style="width:2%">
+                                        <p:rowToggler />
+                                    </p:column>
+                                    <p:column headerText="Nome" 
+                                              styleClass="colunaTab"
+                                              style="font-size: 9pt">
+                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.nome}
+                                    </p:column>
+                                    <p:column headerText="Titulação Máxima"
+                                              styleClass="colunaTab">
+                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.t902TitulacaoMaximaId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Regime de Trabalho"
+                                              styleClass="colunaTab">
+                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.t903RegimeTrabId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Vinculo Empregatício"
+                                              styleClass="colunaTab">
+                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.t904VinculoEmpregaticioId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Usuário"
+                                              styleClass="colunaTab">
+                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.t900UsuarioId.nomeReduzido}
+                                    </p:column>
+                                    <p:rowExpansion>
+                                        <h:form id="infoCli" >
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Data da Admissão:"/>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <h:outputText value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.dtAdmissao}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                            </h:outputText>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Formação/Capacitação/Experiência Pedagógica?"/>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.formacaoCapacitExperPedagogica}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Pertencente a NDE?"/>
+
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.pertenceNde}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <p:dataTable
+                                                    value="#{cc.attrs.t700Avaliacao}"
+                                                    styleClass="clean"
+                                                    emptyMessage="Nenhum "
+                                                    rows="15"
+                                                    paginatorPosition="bottom">
+                                                    <p:column headerText="Tempo Magisterio ou Educ. Profissional (Anos)" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.tempoMagistExpEducacao} 
+                                                    </p:column>
+                                                    <p:column headerText="Tempo Fora Magistério (Exp. Profissional) (Anos)" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.tempoForaMagist}
+                                                    </p:column>
+                                                    <p:column headerText="Média de disciplinas (Últimos 2 anos)" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.qntMediaDisciplinasDoisAnos}
+                                                    </p:column>
+                                                </p:dataTable>
+                                                <p:dataTable
+                                                    value="#{cc.attrs.t700Avaliacao}"
+                                                    styleClass="clean"
+                                                    emptyMessage="Nenhum"
+                                                    rows="15"
+                                                    paginatorPosition="bottom">
+                                                    <p:column headerText="Número de Alunos do docente" 
+                                                              styleClass="colunaTabInterna"
+                                                              style="width: 80pt">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.qntAlunos}
+                                                    </p:column>
+                                                    <p:column headerText="Qnt Discip" 
+                                                              styleClass="colunaTab">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.qntDisciplinas}
+                                                    </p:column>
+                                                    <p:column headerText="CH.Aula" 
+                                                              styleClass="colunaTab">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.cargaHorariaEmAula}
+                                                    </p:column>
+                                                    <p:column headerText="CH.Semanal" 
+                                                              styleClass="colunaTab">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.cargaHorariaSemanal}
+                                                    </p:column>
+                                                    <p:column headerText="CH Ativ.Compl" 
+                                                              styleClass="colunaTab">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.cargaHorariaAtivComplementar}
+                                                    </p:column>
+                                                    <p:column headerText="CH Outros" 
+                                                              styleClass="colunaTab">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.cargaHorariaOutrosCursos}
+                                                    </p:column>
+
+                                                </p:dataTable>
+
+                                                <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
+                                                <p:dataTable
+                                                    value="#{cc.attrs.t700Avaliacao}"
+                                                    styleClass="clean"
+                                                    emptyMessage="Nenhum"
+                                                    rows="15"
+                                                    paginatorPosition="bottom">
+                                                    <p:column headerText="Artigos Periódicos na Área" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.artigosPublicadosArea} 
+                                                    </p:column>
+                                                    <p:column headerText="Artigos Periódicos Outras Área" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.artigosPublicadosoOutrasAreas}
+                                                    </p:column>
+                                                    <p:column headerText="Livros ou Capítulos na Área" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.livrosPublicadosArea}
+                                                    </p:column>
+                                                    <p:column headerText="Livros ou Capítulos em Outras Áreas" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.livrosPublicadosoOutrasAreas}
+                                                    </p:column>
+
+                                                </p:dataTable>
+                                                <p:dataTable
+                                                    value="#{cc.attrs.t700Avaliacao}"
+                                                    style="font-size: 8pt;"
+                                                    styleClass="bar"
+                                                    rows="15"
+                                                    paginatorPosition="bottom">
+                                                    <p:column headerText="Tradução de Artigos" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.traducCapArtPublicados}
+                                                    </p:column>
+                                                    <p:column headerText="Trabalhos Publicados Anais Resumo" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.trabalhosPublicadosoAnaisResumo} 
+                                                    </p:column>
+                                                    <p:column headerText="Trabalhos Publicados Anais Completo" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.trabalhosPublicadosAnaisCompleto}
+                                                    </p:column>
+                                                    <p:column headerText="Trabalhos Publicados" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.traducCapArtPublicados}
+                                                    </p:column>
+
+                                                </p:dataTable>
+                                                <p class="formulario space2">PRODUÇÕES (Últimos 3 anos)</p>
+                                                <p:dataTable
+                                                    value="#{cc.attrs.t700Avaliacao}"
+                                                    style="font-size: 8pt;"
+                                                    styleClass="bar"
+                                                    rows="15"
+                                                    paginatorPosition="bottom">
+
+                                                    <p:column headerText="Propriedade Intelectual Depositada" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.propriedadeIntelectualDepositada} 
+                                                    </p:column>
+                                                    <p:column headerText="Propriedade Intelectual Registrada" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.propriedadeIntelectualRegistrada}
+                                                    </p:column>
+                                                    <p:column headerText="Projetos/Produções Artísticas e Culturais" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.projProducTecArtisticaCultural}
+                                                    </p:column>
+                                                    <p:column headerText="Produção Didático-Pedagógica" 
+                                                              styleClass="colunaTabInterna">
+                                                        #{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t500coordenador.t400DocenteId.rodDidaticoPedagogica}
+                                                    </p:column>
+
+                                                </p:dataTable>
+                                            </div>
+                                        </h:form>
+                                    </p:rowExpansion>
+
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <!--DADOS DO DOCENTE-->
+                        <p class="formulario">DOCENTES</p>
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-12">
+                                <p:dataTable
+                                    id="tbDocentTes"
+                                    value="#{cc.attrs.t700Avaliacao.t700avaliacaoPK.t300CursoId.t400t300docentesList}"
+                                    var="t400Doc"
+                                    styleClass="clean"
+                                    widgetVar="tbTes"
+                                    rows="15"
+                                    paginatorPosition="bottom"
+                                    emptyMessage="Nenhum docente cadastrado."
+                                    >
+                                    <f:facet name="header">
+                                        Docentes Cadastrados
+                                    </f:facet>
+                                    <p:column style="width:2%">
+                                        <p:rowToggler />
+                                    </p:column>
+                                    <p:column headerText="Nome" 
+                                              styleClass="colunaTab"
+                                              style="font-size: 9pt">
+                                        #{t400Doc.t400DocenteId.nome}
+                                    </p:column>
+                                    <p:column headerText="IES"
+                                              styleClass="colunaTab">
+                                        #{t400Doc.t400DocenteId.t200IesId.nome}
+                                    </p:column>
+                                    <p:column headerText="Titulação Máxima"
+                                              styleClass="colunaTab">
+                                        #{t400Doc.t400DocenteId.t902TitulacaoMaximaId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Regime de Trabalho"
+                                              styleClass="colunaTab">
+                                        #{t400Doc.t400DocenteId.t903RegimeTrabId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Vinculo Empregatício"
+                                              styleClass="colunaTab">
+                                        #{t400Doc.t400DocenteId.t904VinculoEmpregaticioId.descricao}
+                                    </p:column>
+                                    <p:column headerText="Usuário"
+                                              styleClass="colunaTab">
+                                        #{t400Doc.t400DocenteId.t900UsuarioId.nomeReduzido}
+                                    </p:column>
+                                    <p:rowExpansion >
+                                        <h:form id="infoCli" >
+                                            <div class="row">
+                                                <div class="col-xs-7">
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Data da Admissão:"/>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            <h:outputText value="#{t400Doc.t400DocenteId.dtAdmissao}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                                            </h:outputText>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Formação/Capacitação/Experiência Pedagógica?"/>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            #{t400Doc.t400DocenteId.formacaoCapacitExperPedagogica}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-7">
+                                                            <h:outputText 
+                                                                style="font-size: 9pt" value="Pertencente a NDE?"/>
+                                                        </div>
+                                                        <div class="col-xs-4">
+                                                            #{t400Doc.t400DocenteId.pertenceNde}
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <p:dataTable
+                                                style="font-size: 8pt;"
+                                                value="#{t400Doc}"
+                                                styleClass="bar"
+                                                rows="15"
+                                                paginatorPosition="bottom">
+                                                <p:column headerText="Tempo Magisterio ou Educ. Profissional (Anos)" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.tempoMagistExpEducacao} 
+                                                </p:column>
+                                                <p:column headerText="Tempo Fora Magistério (Exp. Profissional) (Anos)" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.tempoForaMagist}
+                                                </p:column>
+                                                <p:column headerText="Média de disciplinas (Últimos 2 anos)" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.qntMediaDisciplinasDoisAnos}
+                                                </p:column>
+                                            </p:dataTable>
+                                            <p:dataTable
+                                                style="font-size: 8pt;"
+                                                id="tbDoc"
+                                                value="#{t400Doc}"
+                                                rows="15"
+                                                paginatorPosition="bottom">
+                                                <p:column headerText="Número de Alunos do docente" 
+                                                          styleClass="colunaTabInterna"
+                                                          style="width: 80pt">
+                                                    #{t400Doc.t400DocenteId.qntAlunos}
+                                                </p:column>
+                                                <p:column headerText="Qnt Discip" 
+                                                          styleClass="colunaTab">
+                                                    #{t400Doc.t400DocenteId.qntDisciplinas}
+                                                </p:column>
+                                                <p:column headerText="CH.Aula" 
+                                                          styleClass="colunaTab">
+                                                    #{t400Doc.t400DocenteId.cargaHorariaEmAula}
+                                                </p:column>
+                                                <p:column headerText="CH.Semanal" 
+                                                          styleClass="colunaTab">
+                                                    #{t400Doc.t400DocenteId.cargaHorariaSemanal}
+                                                </p:column>
+                                                <p:column headerText="CH Ativ.Compl" 
+                                                          styleClass="colunaTab">
+                                                    #{t400Doc.t400DocenteId.cargaHorariaAtivComplementar}
+                                                </p:column>
+                                                <p:column headerText="CH Outros" 
+                                                          styleClass="colunaTab">
+                                                    #{t400Doc.t400DocenteId.cargaHorariaOutrosCursos}
+                                                </p:column>
+
+                                            </p:dataTable>
+                                            <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
+                                            <p:dataTable
+                                                style="font-size: 8pt;"
+                                                value="#{t400Doc}"
+                                                rows="15"
+                                                paginatorPosition="bottom">
+                                                <p:column headerText="Artigos Periódicos na Área" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.artigosPublicadosArea} 
+                                                </p:column>
+                                                <p:column headerText="Artigos Periódicos Outras Área" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.artigosPublicadosoOutrasAreas}
+                                                </p:column>
+                                                <p:column headerText="Livros ou Capítulos na Área" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.livrosPublicadosArea}
+                                                </p:column>
+                                                <p:column headerText="Livros ou Capítulos em Outras Áreas" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.livrosPublicadosoOutrasAreas}
+                                                </p:column>
+                                            </p:dataTable>
+                                            <p:dataTable
+                                                style="font-size: 8pt;"
+                                                value="#{t400Doc}"
+                                                var="t400"
+                                                rows="15"
+                                                paginatorPosition="bottom">
+                                                <p:column headerText="Tradução de Artigos" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.traducCapArtPublicados}
+                                                </p:column>
+                                                <p:column headerText="Trabalhos Publicados Anais Resumo" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.trabalhosPublicadosoAnaisResumo} 
+                                                </p:column>
+                                                <p:column headerText="Trabalhos Publicados Anais Completo" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.trabalhosPublicadosAnaisCompleto}
+                                                </p:column>
+                                                <p:column headerText="Trabalhos Publicados" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.traducCapArtPublicados}
+                                                </p:column>
+
+                                            </p:dataTable>
+                                            <p class="formulario space2">PRODUÇÕES (Últimos 3 anos)</p>
+                                            <p:dataTable
+                                                style="font-size: 8pt;"
+                                                value="#{t400Doc}"
+                                                var="t400"
+                                                rows="15"
+                                                paginatorPosition="bottom">
+                                                <p:column headerText="Propriedade Intelectual Depositada" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.propriedadeIntelectualDepositada} 
+                                                </p:column>
+                                                <p:column headerText="Propriedade Intelectual Registrada" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.propriedadeIntelectualRegistrada}
+                                                </p:column>
+                                                <p:column headerText="Projetos/Produções Artísticas e Culturais" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.projProducTecArtisticaCultural}
+                                                </p:column>
+                                                <p:column headerText="Produção Didático-Pedagógica" 
+                                                          styleClass="colunaTabInterna">
+                                                    #{t400Doc.t400DocenteId.prodDidaticoPedagogica}
+                                                </p:column>
+
+                                            </p:dataTable>
+
+                                        </h:form>
+                                    </p:rowExpansion>
+
+                                </p:dataTable>
+                            </div>
+                        </div>
+
+                        <!--AVALIAÇÃO-->
+                        <p class="formulario">AVALIAÇÃO</p>
+
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.2:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_2}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.3:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_3}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.4:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_4}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.5:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_5}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.6:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_6}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.7:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_7}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.8:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_8}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.9:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_9}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.10:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_10}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.11:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_11}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.12:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_12}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.13:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_13}" />                               
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.15:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_15}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.17:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_17}" />                               
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.18:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_18}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.19:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_19}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 2.20:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd2_20}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 3.6:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd3_6}" />                               
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 3.7:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd3_7}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Indicador 3.8:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.conceitoInd3_8}" />                               
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row space3">
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                    <h:outputLabel styleClass="oLPortf" value="Nota média Indicador 2:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.notaInd2}" />                               
+                                </div>
+                            </div>
+                            <div class="col-xs-6 col-lg-6">
+                                <div class="col-xs-5">
+                                   <h:outputLabel styleClass="oLPortf" value="Nota média Indicador 3:" />
+                                </div>
+                                <div class="col-xs-7">
+                                    <h:outputText  value="#{cc.attrs.t700Avaliacao.notaInd3}" />                               
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </h:form>
+                <p:commandButton value="Imprimir Avaliação" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 15px">
+                    <p:printer target="infoAvaliacao" />
+                </p:commandButton>
+            </h:panelGroup> 
+        </div>
+    </composite:implementation>
+
+</html>
+

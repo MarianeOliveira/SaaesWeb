@@ -1,20 +1,12 @@
 package br.com.saaes.jsf.md;
 
 import br.com.saaes.facade.FacUtil;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author f4679646
- */
 @ManagedBean
 public class Logout implements Serializable {
 
