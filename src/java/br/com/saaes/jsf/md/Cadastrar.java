@@ -10,6 +10,7 @@ import br.com.saaes.modelo.T400docente;
 import br.com.saaes.modelo.T400t300docentes;
 import br.com.saaes.modelo.T500coordenador;
 import br.com.saaes.modelo.T600bibliografia;
+import br.com.saaes.modelo.T700avaliacao;
 import br.com.saaes.modelo.T900Usuario;
 import br.com.saaes.modelo.T901conceitos;
 import br.com.saaes.modelo.T902titulacao;
@@ -29,6 +30,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
+import javax.swing.JOptionPane;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
 
@@ -79,13 +81,13 @@ public class Cadastrar extends TabViewMB implements Serializable {
         t400NovoDocente = new T400docente();
         t300NovoCurso = new T300cursos();
         t600NovaBibliografia = new T600bibliografia();
-        
+
         t300List = new ArrayList<>();
-       
+
         t400DocenteList = new ArrayList<>();
         t400T300DocenteList = new ArrayList<>();
         t600BibliList = new ArrayList<>();
-        
+
         this.t300List = DAO.getFromNamedQuery(T300cursos.FIND_ALL, T300cursos.class, em);
         this.t200list = DAO.getFromNamedQuery(T200ies.FIND_ALL, T200ies.class, em);
         this.t400DocenteList = DAO.getFromNamedQuery(T400docente.FIND_ALL, T400docente.class, em);
@@ -100,7 +102,6 @@ public class Cadastrar extends TabViewMB implements Serializable {
         this.t906TipoAtoList = DAO.getFromNamedQuery(T906tipoato.FIND_ALL, T906tipoato.class, em);
         this.t907TipoCursoList = DAO.getFromNamedQuery(T907tipocurso.FIND_ALL, T907tipocurso.class, em);
 
-        
     }
 
     /**
@@ -119,8 +120,20 @@ public class Cadastrar extends TabViewMB implements Serializable {
 
     public void addT300Curso() {
         if (null != t300CursoSeld.getId()) {
-            t400T300NovoDocente = new T400t300docentes(t300CursoSeld);
-            this.t400T300DocenteList.add(t400T300NovoDocente);
+
+            T700avaliacao t700 = DAO.getSingleResultFromFromNamedQuery(T700avaliacao.FIND_BY_T300, T700avaliacao.class, em, t300CursoSeld);
+            if (null != t700) {
+                 if (JOptionPane.showConfirmDialog(null,"Deseja inserir um docente em curso já avaliado?","Curso já foi Avaliado!",JOptionPane.YES_NO_OPTION)
+                        == JOptionPane.YES_OPTION) {
+                    excluirT700Avaliacao(t700);
+                    t400T300NovoDocente = new T400t300docentes(t300CursoSeld);
+                    this.t400T300DocenteList.add(t400T300NovoDocente);
+                }
+            } else {
+                t400T300NovoDocente = new T400t300docentes(t300CursoSeld);
+                this.t400T300DocenteList.add(t400T300NovoDocente);
+            }
+
         }
     }
 
@@ -140,8 +153,8 @@ public class Cadastrar extends TabViewMB implements Serializable {
 
                 em.getTransaction().commit();
 
-                if(null == t200list){
-                     t200list = new ArrayList<>();
+                if (null == t200list) {
+                    t200list = new ArrayList<>();
                 }
                 this.t200list.add(t200IesNova);
                 this.t200IesNova = new T200ies();
@@ -154,6 +167,21 @@ public class Cadastrar extends TabViewMB implements Serializable {
             }
         } catch (Exception e) {
             JsfUtil.addErrorMessage("Erro!", "Não foi possível inserir IES!");
+            throw new IllegalStateException("Erro: " + e.getMessage());
+        }
+    }
+
+    public void excluirT700Avaliacao(T700avaliacao t700) {
+        try {
+            if (null != t700) {
+                em.getTransaction().begin();
+
+                DAO.remove(t700, em, Boolean.TRUE);
+
+                em.getTransaction().commit();
+
+            }
+        } catch (Throwable e) {
             throw new IllegalStateException("Erro: " + e.getMessage());
         }
     }
@@ -195,8 +223,8 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 t300NovoCurso.setT900UsuarioId(usuario);
                 DAO.save(t300NovoCurso, t300NovoCurso.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
-                if(null == t300List){
-                     t300List = new ArrayList<>();
+                if (null == t300List) {
+                    t300List = new ArrayList<>();
                 }
                 this.t300List.add(t300NovoCurso);
 
@@ -220,7 +248,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
         try {
             if (null != t400NovoDocente
                     && (!t400NovoDocente.getNome().equals("") && null != t400NovoDocente.getNome())) {
-                
+
                 em.getTransaction().begin();
                 t400NovoDocente.setT900UsuarioId(usuario);
                 // Seta a data de cadastro // JsfUtil é uma classe que contem várias funcoes uteis
@@ -239,7 +267,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 em.getTransaction().commit();
 
                 this.t400DocenteList = DAO.getFromNamedQuery(T400docente.FIND_ALL, T400docente.class, em);
-        
+
                 t400NovoDocente = new T400docente();
                 t200IesSeld = new T200ies();
                 t300CursoSeld = new T300cursos();
@@ -254,9 +282,9 @@ public class Cadastrar extends TabViewMB implements Serializable {
     }
 
     public void salvaT400T300Docente(boolean transacional, EntityManager em) throws Exception {
-         if (!transacional) {
-                em.getTransaction().begin();
-            }
+        if (!transacional) {
+            em.getTransaction().begin();
+        }
         try {
             if (t400T300DocenteList.size() > 0) {
                 for (T400t300docentes t400t300 : t400T300DocenteList) {
@@ -266,7 +294,7 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 }
             }
         } catch (Exception ex) {
-             em.getTransaction().setRollbackOnly();
+            em.getTransaction().setRollbackOnly();
             if (!transacional) {
                 em.getTransaction().rollback();
             }
@@ -288,8 +316,8 @@ public class Cadastrar extends TabViewMB implements Serializable {
                 DAO.save(t500NovoCoord, t500NovoCoord.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
 
-                if(null == t500CoordList){
-                     t500CoordList = new ArrayList<>();
+                if (null == t500CoordList) {
+                    t500CoordList = new ArrayList<>();
                 }
                 this.t500CoordList.add(t500NovoCoord);
                 t500NovoCoord = new T500coordenador();
@@ -316,9 +344,9 @@ public class Cadastrar extends TabViewMB implements Serializable {
 
                 DAO.save(t600NovaBibliografia, t600NovaBibliografia.getId(), em, Boolean.TRUE);
                 em.getTransaction().commit();
-                
-                if(null == t600BibliList){
-                     t600BibliList = new ArrayList<>();
+
+                if (null == t600BibliList) {
+                    t600BibliList = new ArrayList<>();
                 }
                 this.t600BibliList.add(t600NovaBibliografia);
                 t600NovaBibliografia = new T600bibliografia();

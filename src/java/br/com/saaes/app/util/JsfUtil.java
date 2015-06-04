@@ -15,8 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class JsfUtil {
 
- 
-
     public static void addErrorMessage(Exception ex, String defaultMsg) {
         String msg = ex.getLocalizedMessage();
         if (msg != null && msg.length() > 0) {
@@ -73,12 +71,12 @@ public class JsfUtil {
     public static HttpServletResponse getCurrentHttpServletResponse() {
         return (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
     }
-    
+
     public static EntityManager getEm() {
-            return (EntityManager) getCurrentHttpServletRequest().getAttribute(FiltroJPA.EM);
-        }
-    
-    public static Date getInstante(){
+        return (EntityManager) getCurrentHttpServletRequest().getAttribute(FiltroJPA.EM);
+    }
+
+    public static Date getInstante() {
         Calendar calResultado = Calendar.getInstance();
         return calResultado.getTime();
     }

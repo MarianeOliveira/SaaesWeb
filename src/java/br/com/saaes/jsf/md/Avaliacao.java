@@ -74,6 +74,9 @@ public class Avaliacao extends TabViewMB implements Serializable {
      *
      */
     public void onSelectAvaliacao() {
+        if(null == t300CursoSeld.getT500coordenador()){
+        
+        }
         try {
             this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T300, T700avaliacao.class, em, t300CursoSeld);
             this.avaliar = t700Avaliacaolist.isEmpty();
