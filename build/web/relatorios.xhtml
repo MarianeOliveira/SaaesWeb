@@ -55,8 +55,10 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </p:outputLabel>
                             </p:column>
-                            <p:column style="text-align: center" headerText="Conceito" >
-                             
+                            <p:column style="text-align: center" headerText="Nota Geral" >
+                                <h:outputText  value="#{t700.conceitoFinal}" >
+                                    <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                                    </h:outputText> 
                             </p:column>
                             <p:rowExpansion  styleClass="corpotela">
                                 <!--resumoAvaliacao é um componente a parte, p acessar segure Ctrl e clique -->

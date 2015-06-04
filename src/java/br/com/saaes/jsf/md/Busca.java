@@ -19,6 +19,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.persistence.EntityManager;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -35,11 +36,15 @@ public class Busca extends TabViewMB implements Serializable {
     private List<T200ies> t200list;
     private List<T300cursos> t300List;
     private List<T300cursos> t300ListSelds;
+    private List<T400docente> t400DocenteList;
     private List<T600bibliografia> t600BibliList;
     private List<T700avaliacao> t700Avaliacaolist;
 
     private T200ies t200IesSeld;
     private T300cursos t300CursoSeld;
+    private T300cursos t300Curso;
+    private T400docente t400DocenteSeld;
+    private T700avaliacao t700AvaliacaoSeld;
     private T500coordenador t500CoordenadoCurso;
     private List<T400docente> t400DocentesCurso;
 
@@ -53,9 +58,10 @@ public class Busca extends TabViewMB implements Serializable {
         //this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_ALL, T700avaliacao.class, em);
 
         t200IesSeld = new T200ies();
-        t300CursoSeld = new T300cursos();
+        t300Curso = new T300cursos();
         t700NovaAvaliacao = new T700avaliacao();
         t700Avaliacaolist = new ArrayList<>();
+        t400DocenteList = new ArrayList<>();
     }
 
     /**
@@ -65,6 +71,7 @@ public class Busca extends TabViewMB implements Serializable {
      */
     public void onSelectIes() {
         this.t300ListSelds = DAO.getFromNamedQuery(T300cursos.FIND_IES, T300cursos.class, em, t200IesSeld);
+        this.t400DocenteList = DAO.getFromNamedQuery(T400docente.FIND_IES, T400docente.class, em, t200IesSeld);
         this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T200, T700avaliacao.class, em, t200IesSeld);
     }
 
@@ -74,11 +81,26 @@ public class Busca extends TabViewMB implements Serializable {
      * @param event
      */
     public void onSelectAvaliacao() {
-        try {
-            this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T300, T700avaliacao.class, em, t300CursoSeld);
-//            t500CoordenadoCurso = t300CursoSeld.getT500coordenador();
-        } catch (Exception e) {
-        }
+            this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T300, T700avaliacao.class, em, t300Curso);
+            this.t300ListSelds = DAO.getFromNamedQuery(T300cursos.FIND_ID, T300cursos.class, em, t300Curso.getId());
+    }
+    
+    public void selectT400Docente(SelectEvent event){
+        t400DocenteSeld = (T400docente) event.getObject();
+        t300CursoSeld = null;
+        t700AvaliacaoSeld = null;
+    }
+    
+    public void selectT700Avaliacao(SelectEvent event){
+        t700AvaliacaoSeld = (T700avaliacao) event.getObject();
+        t300CursoSeld = null;
+        t400DocenteSeld = null;
+    }
+    
+    public void selectT300Curso(SelectEvent event){
+        t300CursoSeld = (T300cursos) event.getObject();
+        t400DocenteSeld = null;
+        t700AvaliacaoSeld = null;
     }
 
     /**
@@ -206,6 +228,38 @@ public class Busca extends TabViewMB implements Serializable {
 
     public void setT500CoordenadoCurso(T500coordenador t500CoordenadoCurso) {
         this.t500CoordenadoCurso = t500CoordenadoCurso;
+    }
+
+    public List<T400docente> getT400DocenteList() {
+        return t400DocenteList;
+    }
+
+    public void setT400DocenteList(List<T400docente> t400DocenteList) {
+        this.t400DocenteList = t400DocenteList;
+    }
+
+    public T400docente getT400DocenteSeld() {
+        return t400DocenteSeld;
+    }
+
+    public void setT400DocenteSeld(T400docente t400DocenteSeld) {
+        this.t400DocenteSeld = t400DocenteSeld;
+    }
+
+    public T300cursos getT300Curso() {
+        return t300Curso;
+    }
+
+    public void setT300Curso(T300cursos t300Curso) {
+        this.t300Curso = t300Curso;
+    }
+
+    public T700avaliacao getT700AvaliacaoSeld() {
+        return t700AvaliacaoSeld;
+    }
+
+    public void setT700AvaliacaoSeld(T700avaliacao t700AvaliacaoSeld) {
+        this.t700AvaliacaoSeld = t700AvaliacaoSeld;
     }
 
 }

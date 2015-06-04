@@ -17,7 +17,7 @@ import br.com.saaes.util.JPAUtil;
  */
 public class Operacional {
 
-    public static final String NSA = "NAO SE APLICA";
+    public static final String NSA = "NSA";
     public static final String NAO_EXISTENTE = "NAO EXISTENTE";
     public static final String INSUFICIENTE = "INSUFICIENTE";
     public static final String SUFICIENTE = "SUFICIENTE";
@@ -180,6 +180,8 @@ public class Operacional {
 
         novaAvaliacao.setNotaInd2(notaConceito2);
         novaAvaliacao.setNotaInd3(notaConceito3);
+        
+        novaAvaliacao.setConceitoFinal(conceito_final(notaConceito2 , notaConceito3));
 
         return novaAvaliacao;
     }
@@ -740,11 +742,12 @@ public class Operacional {
         return nota;
     }
     /*
-     * 2.20 Núcleo de apoio pedagógico e experiência docente (nucleo and exper
-     * não previsto) or (menos de 6) = 1 (nucleo and exper > 2 anos) or (Nao
-     * cobre todas areas) = 2 (nucleo and exper > 3 anos) or (cobre todas areas)
-     * = 3 (nucleo and exper > 4 anos) or (cobre todas areas) = 4 (nucleo and
-     * exper > 5 anos) or (cobre todas areas) = 5
+     * 2.20 Núcleo de apoio pedagógico e experiência docente 
+    (nucleo and exper não previsto) or (menos de 6) = 1 
+    (nucleo and exper > 2 anos) or (Nao cobre todas areas) = 2 
+    (nucleo and exper > 3 anos) or (cobre todas areas)= 3 
+    (nucleo and exper > 4 anos) or (cobre todas areas) = 4 
+    (nucleo and exper > 5 anos) or (cobre todas areas) = 5
      *
      * Itens avaliados: 12 Conceito: 4,4
      */
@@ -812,28 +815,21 @@ public class Operacional {
      */
 
     public static int indicador_3_6(T300cursos t300CursoSeld) {
-        double cont = 0.0;
+        double cont = t300CursoSeld.getT600bibliografica().getQntBasica();
+        double exempVaga = t300CursoSeld.getNumVagasAnuais() / cont;
         int nota = 0;
-        for (T400t300docentes t400T300 : t300CursoSeld.getT400t300docentesList()) {
-            cont += t400T300.getT400DocenteId().getLivrosPublicadosArea() + t400T300.getT400DocenteId().getArtigosPublicadosArea();
-        }
-        double size = (double) t300CursoSeld.getT400t300docentesList().size();
-        cont = (cont * 100);
-        double percent = (cont / size);
-
-        if (percent >= 50.0) {
-            if (cont == 0.0) {
+        
+        if ((cont > 0.0) || (exempVaga >= 20.0 )) {
                 nota = 1;
-            } else if (cont <= 3.0) {
+            } else if ((cont > 0.0) || (exempVaga >= 15.0 )) {
                 nota = 2;
-            } else if (cont <= 6.0) {
+            } else if ((cont > 0.0) || (exempVaga >= 10.0 )) {
                 nota = 3;
-            } else if (cont <= 9.0) {
+            } else if ((cont > 0.0) || (exempVaga >= 5.0 )) {
                 nota = 4;
-            } else if (cont > 9.0) {
+            } else if ((cont > 0.0) || (exempVaga > 0.0 )) {
                 nota = 5;
             }
-        }
         return nota;
     }
     /*
@@ -856,31 +852,21 @@ public class Operacional {
      */
 
     public static int indicador_3_7(T300cursos t300CursoSeld) {
-        double cont = 0.0;
+        double cont = t300CursoSeld.getT600bibliografica().getQntCompleta();
+        double exempVaga = t300CursoSeld.getNumVagasAnuais() / cont;
         int nota = 0;
-//        for (T400t300docentes t400T300 : t300CursoSeld.getT400t300docentesList()) {
-//            if (t400T300.getT400DocenteId().get() > 0
-//                    || t400T300.getT400DocenteId().getProdDidaticoPedagogica() > 0) {
-//                cont++;
-//            }
-//        }
-//        double size = (double) t300CursoSeld.getT400t300docentesList().size();
-//        cont = (cont * 100);
-//        double percent = (cont / size);
-//
-//        if (percent >= 50.0) {
-//            if (cont == 0.0) {
-//                nota = 1;
-//            } else if (cont <= 3.0) {
-//                nota = 2;
-//            } else if (cont <= 6.0) {
-//                nota = 3;
-//            } else if (cont <= 9.0) {
-//                nota = 4;
-//            } else if (cont > 9.0) {
-//                nota = 5;
-//            }
-//        }
+        
+        if ((cont > 0.0) || (exempVaga >= 20.0 )) {
+                nota = 1;
+            } else if ((cont > 0.0) || (exempVaga >= 15.0 )) {
+                nota = 2;
+            } else if ((cont > 0.0) || (exempVaga >= 10.0 )) {
+                nota = 3;
+            } else if ((cont > 0.0) || (exempVaga >= 5.0 )) {
+                nota = 4;
+            } else if ((cont > 0.0) || (exempVaga > 0.0 )) {
+                nota = 5;
+            }
         return nota;
     }
     /*
@@ -911,12 +897,36 @@ public class Operacional {
      */
 
     public static int indicador_3_8(T300cursos t300CursoSeld) {
+                double cont = 0.0;
         int nota = 0;
+        for (T400t300docentes t400T300 : t300CursoSeld.getT400t300docentesList()) {
+//            if (t400T300.getT300CursoId().getT600bibliografica().get > 0
+//                    || t400T300.getT400DocenteId().getProdDidaticoPedagogica() > 0) {
+//                cont++;
+//            }
+        }
+        double size = (double) t300CursoSeld.getT400t300docentesList().size();
+        cont = (cont * 100);
+        double percent = (cont / size);
+
+        if (percent >= 50.0) {
+            if (cont == 0.0) {
+                nota = 1;
+            } else if (cont <= 3.0) {
+                nota = 2;
+            } else if (cont <= 6.0) {
+                nota = 3;
+            } else if (cont <= 9.0) {
+                nota = 4;
+            } else if (cont > 9.0) {
+                nota = 5;
+            }
+        }
         return nota;
     }
 
-    public static Double conceito_final(Double dimen1, Double dimen2, Double dimen3) {
-        Double conceito = Math.ceil((dimen1 * 0.4) + (dimen2 * 0.35) + (dimen3 * 0.25));
+    public static Double conceito_final( Double dimen2, Double dimen3) {
+        Double conceito = Math.ceil( (dimen2 * 0.35) + (dimen3 * 0.25));
         return conceito;
     }
 
@@ -924,19 +934,19 @@ public class Operacional {
         String conceito = "";
         switch (nota) {
             case 1:
-                conceito = NAO_EXISTENTE;
+                conceito = "1";
                 break;
             case 2:
-                conceito = INSUFICIENTE;
+                conceito = "2";
                 break;
             case 3:
-                conceito = SUFICIENTE;
+                conceito = "3";
                 break;
             case 4:
-                conceito = BOM_BEM;
+                conceito = "4";
                 break;
             case 5:
-                conceito = EXCELENTE;
+                conceito = "5";
                 break;
             default:
                 conceito = NSA;
@@ -945,6 +955,30 @@ public class Operacional {
         return conceito;
     }
 
+    public static int notaConceito(String conceito) {
+        int nota = 0;
+        switch (conceito) {
+            case NAO_EXISTENTE:
+                nota = 1;
+                break;
+            case INSUFICIENTE:
+                nota = 2;
+                break;
+            case SUFICIENTE:
+                nota = 3;
+                break;
+            case BOM_BEM:
+                nota = 4;
+                break;
+            case EXCELENTE:
+                nota = 5;
+                break;
+            default:
+                nota = 0;
+                break;
+        }
+        return nota;
+    }
     //PRESENCIAL BACHARELADO
     /*
      2.2	
