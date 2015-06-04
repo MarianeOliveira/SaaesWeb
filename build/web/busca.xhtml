@@ -27,7 +27,7 @@
                                            var="t200" 
                                            itemLabel="#{t200.nome} - #{t200.campus}" 
                                            itemValue="#{t200}"  />
-                            <p:ajax update="selcCurso cursosAvaliacao " 
+                            <p:ajax update="selcCurso tabelas" 
                                     event="change" 
                                     listener="#{busca.onSelectIes}" 
                                     />
@@ -39,39 +39,366 @@
                         <h:outputText value="Curso " />
                     </div>
                     <div class="col-xs-8">
-
                         <p:selectOneMenu  id="selcCurso" style="width: 50%;" 
-                                          value="#{busca.t300CursoSeld}" 
+                                          value="#{busca.t300Curso}" 
                                           converter="#{t300CursoConverter}">
                             <f:selectItem itemLabel="Selecione o curso" noSelectionOption="true"/>
                             <f:selectItems value="#{busca.t300ListSelds}" 
                                            var="t300" 
                                            itemLabel="#{t300.nome}" 
                                            itemValue="#{t300}"  />
-                            <p:ajax event="change" update="cursosAvaliacao " 
+                            <p:ajax event="change" update="tabelas " 
                                     listener="#{busca.onSelectAvaliacao()}" />
                         </p:selectOneMenu>
                     </div>
                 </div>
-                <h:panelGroup id="cursosAvaliacao">
-                    <div class="row space3">
+                
+                <h:panelGroup id="tabelas">
+                    <div class="row space1">
                         <p:dataTable
-                            id="tbPrincipal"
+                            value="#{busca.t300ListSelds}"
+                            var="t300"
+                            styleClass="clean"
+                            selectionMode="single"
+                            rowKey="#{t300}"
+                            rows="15"
+                            paginatorPosition="bottom"
+                            emptyMessage="Nenhum curso cadastrado."
+                            >
+                            <p:ajax event="rowSelect"  update="@form" listener="#{busca.selectT300Curso}"/>
+                            <f:facet name="header">
+                                Cursos Cadastrados
+                            </f:facet>
+                            <p:column headerText="Curso" 
+                                      styleClass="colunaTab">
+                                #{t300.nome}
+                            </p:column>
+                            <p:column headerText="IES"
+                                      styleClass="colunaTab">
+                                #{t300.t200IesId.nome}
+                            </p:column>
+                            <p:column headerText="Turno"
+                                      styleClass="colunaTab">
+                                #{t300.turno}
+                            </p:column>
+                            <p:column headerText="Tipo de Ato"
+                                      styleClass="colunaTab">
+                                #{t300.t906TipoAtoId.descricao}
+                            </p:column>
+                            <p:column headerText="Modalidade"
+                                      styleClass="colunaTab">
+                                #{t300.t905ModalidadeId.descricao}
+                            </p:column>
+                            <p:column headerText="Tipo de Curso"
+                                      styleClass="colunaTab">
+                                #{t300.t907TipoCursoId.descricao}
+                            </p:column>
+                            <p:column headerText="Usuário"
+                                      styleClass="colunaTab">
+                                #{t300.t900UsuarioId.nomeReduzido}
+                            </p:column>
+
+                        </p:dataTable>
+                        <h:form id="ifnT300" rendered="#{not empty busca.t300CursoSeld}">
+                            <p:dataTable
+                                style="font-size: 12pt; width: 90%"
+                                id="tbCur"
+                                value="#{busca.t300CursoSeld}"
+                                var="t300"
+                                rows="15"
+                                paginatorPosition="bottom"
+                                >
+                                <p:column headerText="Qnt Estudantes"
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.numAlunosMatriculados}
+                                </p:column>
+                                <p:column headerText="Disciplinas" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.numTotalDisciplinas}
+                                </p:column>
+                                <p:column headerText="CH Curso(H)" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.cargaHoraria}
+                                </p:column>
+                                <p:column headerText="CH Estágio(H)" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.cargaHorariaEstagio}
+                                </p:column>
+                                <p:column headerText="CH TCC(H)" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.cargaHorariaTcc}
+                                </p:column>
+                                <p:column headerText="CH Líbras(H)" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.cargaHorariaLibras}
+                                </p:column>
+                                <p:column headerText="Duração(Períodos)" 
+                                          style="width: 60px;"
+                                          styleClass="colunaTab">
+                                    #{t300.duracaoCurso}
+                                </p:column>
+                                <p:column headerText="Num Vagas" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.numVagas}                                                   
+                                </p:column>
+                                <p:column headerText="Num Vagas Anuais" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.numVagasAnuais}                                                   
+                                </p:column>
+                                <p:column headerText="Num Egressos" 
+                                          style="width: 50px;"
+                                          styleClass="colunaTab">
+                                    #{t300.numEgressos}
+                                </p:column>
+                            </p:dataTable>
+                        </h:form>
+                    </div>
+
+                    <div class="row space1">
+                        <p:dataTable
+                            value="#{busca.t400DocenteList}"
+                            var="t400Doc"
+                            styleClass="clean"
+                            selectionMode="single"
+                            rowKey="#{t400Doc}"
+                            rows="15"
+                            paginatorPosition="bottom"
+                            emptyMessage="Nenhum curso cadastrado."
+                            >
+                            <p:ajax event="rowSelect"  update="@form" listener="#{busca.selectT400Docente}" />
+                            <f:facet name="header">
+                                Docentes Cadastrados
+                            </f:facet>
+                            <p:column headerText="Nome" 
+                                      styleClass="colunaTab"
+                                      style="font-size: 9pt">
+                                #{t400Doc.nome}
+                            </p:column>
+                            <p:column headerText="IES"
+                                      styleClass="colunaTab">
+                                #{t400Doc.t200IesId.nome}
+                            </p:column>
+                            <p:column headerText="Titulação Máxima"
+                                      styleClass="colunaTab">
+                                #{t400Doc.t902TitulacaoMaximaId.descricao}
+                            </p:column>
+                            <p:column headerText="Regime de Trabalho"
+                                      styleClass="colunaTab">
+                                #{t400Doc.t903RegimeTrabId.descricao}
+                            </p:column>
+                            <p:column headerText="Vinculo Empregatício"
+                                      styleClass="colunaTab">
+                                #{t400Doc.t904VinculoEmpregaticioId.descricao}
+                            </p:column>
+                            <p:column headerText="Usuário"
+                                      styleClass="colunaTab">
+                                #{t400Doc.t900UsuarioId.nomeReduzido}
+                            </p:column>
+
+                        </p:dataTable>
+                        <h:form id="info" rendered="#{not empty busca.t400DocenteSeld}">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p:dataTable
+                                        style="font-size: 8pt; "
+                                        value="#{busca.t400DocenteSeld.t400t300docentesList}"
+                                        var="t400t300"
+                                        rows="15"
+                                        paginatorPosition="bottom">
+                                        <p:column headerText="Curso do Docente" 
+                                                  styleClass="colunaTabInterna">
+                                            #{t400t300.t300CursoId.nome} 
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </div>
+                                <div class="col-xs-7">
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Data da Admissão:"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <h:outputText value="#{busca.t400DocenteSeld.dtAdmissao}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Formação/Capacitação/Experiência Pedagógica?"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            #{busca.t400DocenteSeld.formacaoCapacitExperPedagogica}
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Pertencente a NDE?"/>
+
+                                        </div>
+                                        <div class="col-xs-4">
+                                            #{busca.t400DocenteSeld.pertenceNde}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p:dataTable
+                                style="font-size: 8pt;"
+                                value="#{busca.t400DocenteSeld}"
+                                rows="15"
+                                paginatorPosition="bottom">
+                                <p:column headerText="Tempo Magisterio ou Educ. Profissional (Anos)" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.tempoMagistExpEducacao} 
+                                </p:column>
+                                <p:column headerText="Tempo Fora Magistério (Exp. Profissional) (Anos)" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.tempoForaMagist}
+                                </p:column>
+                                <p:column headerText="Média de disciplinas (Últimos 2 anos)" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.qntMediaDisciplinasDoisAnos}
+                                </p:column>
+                            </p:dataTable>
+                            <p:dataTable
+                                style="font-size: 8pt;"
+                                id="tbDoc"
+                                value="#{busca.t400DocenteSeld}"
+
+                                rows="15"
+                                paginatorPosition="bottom">
+                                <p:column headerText="Número de Alunos do docente" 
+                                          styleClass="colunaTabInterna"
+                                          style="width: 80pt">
+                                    #{busca.t400DocenteSeld.qntAlunos}
+                                </p:column>
+                                <p:column headerText="Qnt Discip" 
+                                          styleClass="colunaTab">
+                                    #{busca.t400DocenteSeld.qntDisciplinas}
+                                </p:column>
+                                <p:column headerText="CH.Aula" 
+                                          styleClass="colunaTab">
+                                    #{busca.t400DocenteSeld.cargaHorariaEmAula}
+                                </p:column>
+                                <p:column headerText="CH.Semanal" 
+                                          styleClass="colunaTab">
+                                    #{busca.t400DocenteSeld.cargaHorariaSemanal}
+                                </p:column>
+                                <p:column headerText="CH Ativ.Compl" 
+                                          styleClass="colunaTab">
+                                    #{busca.t400DocenteSeld.cargaHorariaAtivComplementar}
+                                </p:column>
+                                <p:column headerText="CH Outros" 
+                                          styleClass="colunaTab">
+                                    #{busca.t400DocenteSeld.cargaHorariaOutrosCursos}
+                                </p:column>
+
+                            </p:dataTable>
+                            <p class="formulario space2">PUBLICAÇÕES (Últimos 3 anos)</p>
+                            <p:dataTable
+                                style="font-size: 8pt;"
+                                value="#{busca.t400DocenteSeld}"
+
+                                rows="15"
+                                paginatorPosition="bottom">
+                                <p:column headerText="Artigos Periódicos na Área" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.artigosPublicadosArea} 
+                                </p:column>
+                                <p:column headerText="Artigos Periódicos Outras Área" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.artigosPublicadosoOutrasAreas}
+                                </p:column>
+                                <p:column headerText="Livros ou Capítulos na Área" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.livrosPublicadosArea}
+                                </p:column>
+                                <p:column headerText="Livros ou Capítulos em Outras Áreas" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.livrosPublicadosoOutrasAreas}
+                                </p:column>
+
+                            </p:dataTable>
+                            <p:dataTable
+                                style="font-size: 8pt;"
+                                value="#{busca.t400DocenteSeld}"
+                                var="t400"
+                                rows="15"
+                                paginatorPosition="bottom">
+                                <p:column headerText="Tradução de Artigos" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.traducCapArtPublicados}
+                                </p:column>
+                                <p:column headerText="Trabalhos Publicados Anais Resumo" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.trabalhosPublicadosoAnaisResumo} 
+                                </p:column>
+                                <p:column headerText="Trabalhos Publicados Anais Completo" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.trabalhosPublicadosAnaisCompleto}
+                                </p:column>
+                                <p:column headerText="Trabalhos Publicados" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.traducCapArtPublicados}
+                                </p:column>
+
+                            </p:dataTable>
+                            <p class="formulario space2">PRODUÇÕES (Últimos 3 anos)</p>
+                            <p:dataTable
+                                style="font-size: 8pt;"
+                                value="#{busca.t400DocenteSeld}"
+                                var="t400"
+                                rows="15"
+                                paginatorPosition="bottom">
+
+                                <p:column headerText="Propriedade Intelectual Depositada" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.propriedadeIntelectualDepositada} 
+                                </p:column>
+                                <p:column headerText="Propriedade Intelectual Registrada" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.propriedadeIntelectualRegistrada}
+                                </p:column>
+                                <p:column headerText="Projetos/Produções Artísticas e Culturais" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.projProducTecArtisticaCultural}
+                                </p:column>
+                                <p:column headerText="Produção Didático-Pedagógica" 
+                                          styleClass="colunaTabInterna">
+                                    #{busca.t400DocenteSeld.prodDidaticoPedagogica}
+                                </p:column>
+
+                            </p:dataTable>
+                        </h:form>
+                    </div>
+
+                    <div class="row space1">
+                        <p:dataTable
                             value="#{busca.t700Avaliacaolist}"
                             var="t700"
                             styleClass="clean"
                             widgetVar="tbTes"
+                            selectionMode="single"
+                            rowKey="#{t700}"
                             rows="15"
                             paginatorPosition="bottom"
                             emptyMessage="Nenhum curso Avaliado"
                             >
-                            <p:ajax event="rowSelect"  update="@form" />
+                            <p:ajax event="rowSelect"  update="@form" listener="#{busca.selectT700Avaliacao}" />
                             <f:facet name="header">
                                 Cursos com Avaliação realizada
                             </f:facet>
-                            <p:column style="width:4%">
-                                <p:rowToggler />
-                            </p:column>
                             <p:column headerText="Curso" style="width:350px"
                                       styleClass="colunaTab">
                                 #{t700.t700avaliacaoPK.t300CursoId.nome}
@@ -98,22 +425,15 @@
                                     <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
                                 </h:outputText> 
                             </p:column>
-                            <p:rowExpansion  styleClass="corpotela">
-                                <!--resumoAvaliacao é um componente a parte, p acessar segure Ctrl e clique -->
-                                <h:panelGroup id="resumoCurso">
-                                    <pp:resumoAvaliacao t700Avaliacao="#{t700}"/>
-                                </h:panelGroup>
-                            </p:rowExpansion>
 
                         </p:dataTable>
-                        
+                        <h:form id="inft700" rendered="#{not empty busca.t700AvaliacaoSeld}">
+                            <pp:resumoAvaliacao t700Avaliacao="#{busca.t700AvaliacaoSeld}"/>
+                        </h:form>
                     </div>
                 </h:panelGroup>
-                
             </h:form>
-
         </ui:define> 
-
     </ui:composition>
 
 </html>
