@@ -27,7 +27,7 @@
                                            var="t200" 
                                            itemLabel="#{t200.nome} - #{t200.campus}" 
                                            itemValue="#{t200}"  />
-                            <p:ajax update="selcCurso cursosAvaliacao" 
+                            <p:ajax update="selcCurso cursosAvaliacao " 
                                     event="change" 
                                     listener="#{busca.onSelectIes}" 
                                     />
@@ -48,7 +48,8 @@
                                            var="t300" 
                                            itemLabel="#{t300.nome}" 
                                            itemValue="#{t300}"  />
-                            <p:ajax event="change" update="cursosAvaliacao" listener="#{busca.onSelectAvaliacao()}" />
+                            <p:ajax event="change" update="cursosAvaliacao " 
+                                    listener="#{busca.onSelectAvaliacao()}" />
                         </p:selectOneMenu>
                     </div>
                 </div>
@@ -92,26 +93,23 @@
                                     <f:convertDateTime pattern="dd/MM/yyyy" />
                                 </p:outputLabel>
                             </p:column>
-                            <p:column style="text-align: center" headerText="Conceito" >
-                                <!--<h:graphicImage url="/img/Ok-icon.png" 
-                                style="border:none;" 
-                                title="Todos processos revisados" 
-                                rendered="true"/>-->
+                            <p:column style="text-align: center" headerText="Nota Geral" >
+                                <h:outputText  value="#{t700.conceitoFinal}" >
+                                    <f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+                                </h:outputText> 
                             </p:column>
                             <p:rowExpansion  styleClass="corpotela">
                                 <!--resumoAvaliacao é um componente a parte, p acessar segure Ctrl e clique -->
                                 <h:panelGroup id="resumoCurso">
                                     <pp:resumoAvaliacao t700Avaliacao="#{t700}"/>
                                 </h:panelGroup>
-<!--                                <p:commandButton value="Imprimir Avaliação" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 15px">
-                                    <p:printer target="resumoCurso" />
-                                </p:commandButton>-->
                             </p:rowExpansion>
 
                         </p:dataTable>
+                        
                     </div>
-
                 </h:panelGroup>
+                
             </h:form>
 
         </ui:define> 

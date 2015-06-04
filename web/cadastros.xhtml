@@ -73,8 +73,7 @@
 
                                     </p:fieldset> 
 
-                                    <div class="row">
-                                        <div class="col-xs-6">
+                                    <div class="row space1">
                                             <p:dataTable
                                                 id="tbIes"
                                                 value="#{cadastrar.t200list}"
@@ -90,14 +89,17 @@
                                                     Instituições Cadastradas
                                                 </f:facet>
                                                 <p:column headerText="Nome da Instituição" 
+                                                          style="width: 250pt;"
                                                           styleClass="colunaTab">
                                                     <p:outputLabel value="#{t200.nome}"/>
                                                 </p:column>
                                                 <p:column headerText="Campus"
+                                                          style="width: 150pt;"
                                                           styleClass="colunaTab">
                                                     <p:outputLabel value="#{t200.campus}"/>
                                                 </p:column>
                                                 <p:column headerText="Usuário"
+                                                          style="width: 100pt;"
                                                           styleClass="colunaTab">
                                                     #{t200.t900UsuarioId.nomeReduzido}
                                                 </p:column>
@@ -122,7 +124,6 @@
                                             </p:dataTable>
                                         </div>
 
-                                    </div>
                                 </p:tab>
 
                                 <!--Cadastro de Curso-->
@@ -342,7 +343,6 @@
 
                                         </div>
                                     </p:fieldset>
-                                    <div class="row space4">
                                         <div class="row space1">
                                             <p:dataTable
                                                 id="tbCursoTes"
@@ -453,8 +453,6 @@
 
                                             </p:dataTable>
                                         </div>
-
-                                    </div>
 
                                 </p:tab>
 
@@ -933,9 +931,7 @@
                                         </div>
 
                                     </p:fieldset> 
-
-                                    <div class="row space4">
-                                        <div class="col-xs-12 space1">
+                                         <div class="row space1">
                                             <p:dataTable
                                                 id="tbDocentTes"
                                                 value="#{cadastrar.t400DocenteList}"
@@ -1168,8 +1164,6 @@
 
                                             </p:dataTable>
                                         </div>
-
-                                    </div>
                                 </p:tab>
 
                                 <!--Bibliografias-->
@@ -1303,7 +1297,7 @@
 
                                     </p:fieldset> 
 
-                                    <div class="row">
+                                     <div class="row space1">
                                         <p:dataTable
                                             id="tbBiblio"
                                             value="#{cadastrar.t600BibliList}"
@@ -1316,25 +1310,25 @@
                                             >
                                             <p:ajax event="rowSelect"  update="@form" />
                                             <f:facet name="header">
-                                                Docentes Cadastrados
+                                                Bibliografias Cadastradas
                                             </f:facet>
                                             <p:column headerText="Curso" 
-                                                      styleClass="colunaTab">
+                                                      styleClass="colunaTab"
+                                                      style="width: 150pt;">
                                                 #{t600.t300CursoId.nome}
                                             </p:column>
                                             <p:column headerText="IES" 
-
+                                                      style="width: 150pt;"
                                                       styleClass="colunaTab">
                                                 #{t600.t300CursoId.t200IesId.nome}
                                             </p:column>
                                             <p:column headerText="Periódicos"
                                                       sortBy="#{t600.periodico}"
-                                                      style="width: 12%"
                                                       styleClass="colunaTab">
                                                 #{t600.periodico}
                                             </p:column>
                                             <p:column headerText="Qnt básica"
-                                                      style="width: 12%"
+                                                      
                                                       styleClass="colunaTab">
                                                 #{t600.qntBasica}
                                             </p:column>
@@ -1509,8 +1503,6 @@
                                         </div>
 
                                     </p:fieldset> 
-
-                                    <div class="row space4">
                                         <div class="row space1">
                                             <p:dataTable
                                                 id="tbCoord"
@@ -1524,7 +1516,7 @@
                                                 >
                                                 <p:ajax event="rowSelect"  update="@form" />
                                                 <f:facet name="header">
-                                                    Docentes Cadastrados
+                                                    Coordenador Cadastrado
                                                 </f:facet>
                                                 <p:column style="width:1%">
                                                     <p:rowToggler />
@@ -1588,7 +1580,6 @@
 
                                             </p:dataTable>
                                         </div>
-                                    </div>
                                 </p:tab>
 
                             </p:tabView>
