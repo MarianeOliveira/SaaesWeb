@@ -70,6 +70,9 @@ public class Busca extends TabViewMB implements Serializable {
      * @param event
      */
     public void onSelectIes() {
+        t700AvaliacaoSeld = null;
+        t300CursoSeld = null;
+        t400DocenteSeld = null;
         this.t300ListSelds = DAO.getFromNamedQuery(T300cursos.FIND_IES, T300cursos.class, em, t200IesSeld);
         this.t400DocenteList = DAO.getFromNamedQuery(T400docente.FIND_IES, T400docente.class, em, t200IesSeld);
         this.t700Avaliacaolist = DAO.getFromNamedQuery(T700avaliacao.FIND_BY_T200, T700avaliacao.class, em, t200IesSeld);
