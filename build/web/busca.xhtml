@@ -52,7 +52,7 @@
                         </p:selectOneMenu>
                     </div>
                 </div>
-                
+
                 <h:panelGroup id="tabelas">
                     <div class="row space1">
                         <p:dataTable
@@ -81,25 +81,35 @@
                                       styleClass="colunaTab">
                                 #{t300.turno}
                             </p:column>
-                            <p:column headerText="Tipo de Ato"
-                                      styleClass="colunaTab">
-                                #{t300.t906TipoAtoId.descricao}
-                            </p:column>
-                            <p:column headerText="Modalidade"
-                                      styleClass="colunaTab">
-                                #{t300.t905ModalidadeId.descricao}
-                            </p:column>
-                            <p:column headerText="Tipo de Curso"
-                                      styleClass="colunaTab">
-                                #{t300.t907TipoCursoId.descricao}
-                            </p:column>
-                            <p:column headerText="Usuário"
-                                      styleClass="colunaTab">
-                                #{t300.t900UsuarioId.nomeReduzido}
-                            </p:column>
+
 
                         </p:dataTable>
                         <h:form id="ifnT300" rendered="#{not empty busca.t300CursoSeld}">
+                            <p:dataTable
+                                style="font-size: 12pt; width: 90%"
+                                value="#{busca.t300CursoSeld}"
+                                var="t300"
+                                rows="15"
+                                paginatorPosition="bottom"
+                                >
+                                <p:column headerText="Tipo de Ato"
+                                          styleClass="colunaTab">
+                                    #{t300.t906TipoAtoId.descricao}
+                                </p:column>
+                                <p:column headerText="Modalidade"
+                                          styleClass="colunaTab">
+                                    #{t300.t905ModalidadeId.descricao}
+                                </p:column>
+                                <p:column headerText="Tipo de Curso"
+                                          styleClass="colunaTab">
+                                    #{t300.t907TipoCursoId.descricao}
+                                </p:column>
+                                <p:column headerText="Usuário"
+                                          styleClass="colunaTab">
+                                    #{t300.t900UsuarioId.nomeReduzido}
+                                </p:column>
+
+                            </p:dataTable>
                             <p:dataTable
                                 style="font-size: 12pt; width: 90%"
                                 id="tbCur"
@@ -138,6 +148,16 @@
                                           styleClass="colunaTab">
                                     #{t300.cargaHorariaLibras}
                                 </p:column>
+
+                            </p:dataTable>
+                            <p:dataTable
+                                style="font-size: 12pt; width: 90%"
+                                value="#{busca.t300CursoSeld}"
+                                var="t300"
+                                rows="15"
+                                paginatorPosition="bottom"
+                                >
+
                                 <p:column headerText="Duração(Períodos)" 
                                           style="width: 60px;"
                                           styleClass="colunaTab">
@@ -190,18 +210,7 @@
                                       styleClass="colunaTab">
                                 #{t400Doc.t902TitulacaoMaximaId.descricao}
                             </p:column>
-                            <p:column headerText="Regime de Trabalho"
-                                      styleClass="colunaTab">
-                                #{t400Doc.t903RegimeTrabId.descricao}
-                            </p:column>
-                            <p:column headerText="Vinculo Empregatício"
-                                      styleClass="colunaTab">
-                                #{t400Doc.t904VinculoEmpregaticioId.descricao}
-                            </p:column>
-                            <p:column headerText="Usuário"
-                                      styleClass="colunaTab">
-                                #{t400Doc.t900UsuarioId.nomeReduzido}
-                            </p:column>
+
 
                         </p:dataTable>
                         <h:form id="info" rendered="#{not empty busca.t400DocenteSeld}">
@@ -221,6 +230,37 @@
                                     </p:dataTable>
                                 </div>
                                 <div class="col-xs-7">
+
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Regime de Trabalho:"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <h:outputText value="#{busca.t400DocenteSeld.t903RegimeTrabId.descricao}">
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Vinculo Empregatício:"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <h:outputText value="#{busca.t400DocenteSeld.t904VinculoEmpregaticioId.descricao}">
+                                            </h:outputText>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-7">
+                                            <h:outputText 
+                                                style="font-size: 9pt" value="Usuário de Cadastro:"/>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <h:outputText value="#{busca.t400DocenteSeld.t900UsuarioId.nomeReduzido}">
+                                            </h:outputText>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-xs-7">
                                             <h:outputText 

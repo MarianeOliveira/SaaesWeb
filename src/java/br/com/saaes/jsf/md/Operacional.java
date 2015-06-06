@@ -180,8 +180,8 @@ public class Operacional {
 
         novaAvaliacao.setNotaInd2(notaConceito2);
         novaAvaliacao.setNotaInd3(notaConceito3);
-        
-        novaAvaliacao.setConceitoFinal(conceito_final(notaConceito2 , notaConceito3));
+
+        novaAvaliacao.setConceitoFinal(conceito_final(notaConceito2, notaConceito3));
 
         return novaAvaliacao;
     }
@@ -743,11 +743,11 @@ public class Operacional {
     }
     /*
      * 2.20 Núcleo de apoio pedagógico e experiência docente 
-    (nucleo and exper não previsto) or (menos de 6) = 1 
-    (nucleo and exper > 2 anos) or (Nao cobre todas areas) = 2 
-    (nucleo and exper > 3 anos) or (cobre todas areas)= 3 
-    (nucleo and exper > 4 anos) or (cobre todas areas) = 4 
-    (nucleo and exper > 5 anos) or (cobre todas areas) = 5
+     (nucleo and exper não previsto) or (menos de 6) = 1 
+     (nucleo and exper > 2 anos) or (Nao cobre todas areas) = 2 
+     (nucleo and exper > 3 anos) or (cobre todas areas)= 3 
+     (nucleo and exper > 4 anos) or (cobre todas areas) = 4 
+     (nucleo and exper > 5 anos) or (cobre todas areas) = 5
      *
      * Itens avaliados: 12 Conceito: 4,4
      */
@@ -815,21 +815,23 @@ public class Operacional {
      */
 
     public static int indicador_3_6(T300cursos t300CursoSeld) {
-        double cont = t300CursoSeld.getT600bibliografica().getQntBasica();
-        double exempVaga = t300CursoSeld.getNumVagasAnuais() / cont;
-        int nota = 0;
+        double contBasic = t300CursoSeld.getT600bibliografica().getQntBasica();
+        double tituloUndCurricular = contBasic / t300CursoSeld.getT600bibliografica().getQntDisciplina();
+        double exemplarVagasAnuais = t300CursoSeld.getNumVagasAnuais() / contBasic;
         
-        if ((cont > 0.0) || (exempVaga >= 20.0 )) {
-                nota = 1;
-            } else if ((cont > 0.0) || (exempVaga >= 15.0 )) {
-                nota = 2;
-            } else if ((cont > 0.0) || (exempVaga >= 10.0 )) {
-                nota = 3;
-            } else if ((cont > 0.0) || (exempVaga >= 5.0 )) {
-                nota = 4;
-            } else if ((cont > 0.0) || (exempVaga > 0.0 )) {
-                nota = 5;
-            }
+        int nota = 0;
+
+        if ((contBasic == 0.0) || (exemplarVagasAnuais >= 20.0) || tituloUndCurricular < 3) {
+            nota = 1;
+        } else if (((contBasic > 0.0) && (exemplarVagasAnuais >= 15.0)) && tituloUndCurricular >= 3) {
+            nota = 2;
+        } else if (((contBasic > 0.0) && (exemplarVagasAnuais >= 10.0)) && tituloUndCurricular >= 3) {
+            nota = 3;
+        } else if (((contBasic > 0.0) && (exemplarVagasAnuais >= 5.0)) && tituloUndCurricular >= 3) {
+            nota = 4;
+        } else if (((contBasic > 0.0) && (exemplarVagasAnuais > 0.0)) && tituloUndCurricular >= 3) {
+            nota = 5;
+        }
         return nota;
     }
     /*
@@ -851,22 +853,24 @@ public class Operacional {
      * = 5
      */
 
-    public static int indicador_3_7(T300cursos t300CursoSeld) {
-        double cont = t300CursoSeld.getT600bibliografica().getQntCompleta();
-        double exempVaga = t300CursoSeld.getNumVagasAnuais() / cont;
-        int nota = 0;
+    public static int indicador_3_7(T300cursos t300CursoSeld) 
+    {
+        double contCompl = t300CursoSeld.getT600bibliografica().getQntComplementar();
+        double tituloUndCurricular = contCompl / t300CursoSeld.getT600bibliografica().getQntDisciplina();
         
-        if ((cont > 0.0) || (exempVaga >= 20.0 )) {
-                nota = 1;
-            } else if ((cont > 0.0) || (exempVaga >= 15.0 )) {
-                nota = 2;
-            } else if ((cont > 0.0) || (exempVaga >= 10.0 )) {
-                nota = 3;
-            } else if ((cont > 0.0) || (exempVaga >= 5.0 )) {
-                nota = 4;
-            } else if ((cont > 0.0) || (exempVaga > 0.0 )) {
-                nota = 5;
-            }
+        int nota = 0;
+
+         if (tituloUndCurricular >= 5) {
+            nota = 5;
+        }else if (tituloUndCurricular >= 4) {
+            nota = 4;
+        } else if (tituloUndCurricular >= 3) {
+            nota = 3;
+        } else if (tituloUndCurricular >= 2) {
+            nota = 2;
+        } else if (tituloUndCurricular < 2) {
+            nota = 1;
+        } 
         return nota;
     }
     /*
@@ -897,36 +901,27 @@ public class Operacional {
      */
 
     public static int indicador_3_8(T300cursos t300CursoSeld) {
-                double cont = 0.0;
+        double contPeriodicos = t300CursoSeld.getT600bibliografica().getPeriodico();
+        double tituloUndCurricular = contPeriodicos / t300CursoSeld.getT600bibliografica().getQntDisciplina();
+        
         int nota = 0;
-        for (T400t300docentes t400T300 : t300CursoSeld.getT400t300docentesList()) {
-//            if (t400T300.getT300CursoId().getT600bibliografica().get > 0
-//                    || t400T300.getT400DocenteId().getProdDidaticoPedagogica() > 0) {
-//                cont++;
-//            }
-        }
-        double size = (double) t300CursoSeld.getT400t300docentesList().size();
-        cont = (cont * 100);
-        double percent = (cont / size);
 
-        if (percent >= 50.0) {
-            if (cont == 0.0) {
-                nota = 1;
-            } else if (cont <= 3.0) {
-                nota = 2;
-            } else if (cont <= 6.0) {
-                nota = 3;
-            } else if (cont <= 9.0) {
-                nota = 4;
-            } else if (cont > 9.0) {
-                nota = 5;
-            }
-        }
+         if (tituloUndCurricular >= 20) {
+            nota = 5;
+        }else if (tituloUndCurricular >= 15) {
+            nota = 4;
+        } else if (tituloUndCurricular >= 10) {
+            nota = 3;
+        } else if (tituloUndCurricular >= 5) {
+            nota = 2;
+        } else if (tituloUndCurricular < 5) {
+            nota = 1;
+        } 
         return nota;
     }
 
-    public static Double conceito_final( Double dimen2, Double dimen3) {
-        Double conceito = Math.ceil( (dimen2 * 0.35) + (dimen3 * 0.25));
+    public static Double conceito_final(Double dimen2, Double dimen3) {
+        Double conceito = Math.ceil((dimen2 * 0.35) + (dimen3 * 0.25));
         return conceito;
     }
 
@@ -955,62 +950,4 @@ public class Operacional {
         return conceito;
     }
 
-    public static int notaConceito(String conceito) {
-        int nota = 0;
-        switch (conceito) {
-            case NAO_EXISTENTE:
-                nota = 1;
-                break;
-            case INSUFICIENTE:
-                nota = 2;
-                break;
-            case SUFICIENTE:
-                nota = 3;
-                break;
-            case BOM_BEM:
-                nota = 4;
-                break;
-            case EXCELENTE:
-                nota = 5;
-                break;
-            default:
-                nota = 0;
-                break;
-        }
-        return nota;
-    }
-    //PRESENCIAL BACHARELADO
-    /*
-     2.2	
-    
-     2.4	
-     2.5	
-     2.7	
-     2.8	
-     2.9	
-     2.10	
-     2.12	
-     2.15	
-     3.6	
-     3.7	
-     3.8
-     */
-    //PRESENCIAL TECNOLOGO
-    //PRESENCIAL LICENCIATURA
-    //Autorização A DISTANCIA BACHARELADO
-    //Autorização A DISTANCIA TECNOLOGO
-    //Autorização A DISTANCIA LICENCIATURA
-    //RECONHECIMENTO PRESENCIAL BACHARELADO
-    //RECONHECIMENTO PRESENCIAL TECNOLOGO
-    //RECONHECIMENTO PRESENCIAL LICENCIATURA
-    //RECONHECIMENTO A DISTANCIA BACHARELADO
-    //RECONHECIMENTO A DISTANCIA TECNOLOGO
-    //RECONHECIMENTO A DISTANCIA LICENCIATURA
-    //R .RECONHECIMENTO PRESENCIAL BACHARELADO
-    //R. RECONHECIMENTO PRESENCIAL TECNOLOGO
-    //R. RECONHECIMENTO PRESENCIAL LICENCIATURA
-    //R. RECONHECIMENTO A DISTANCIA BACHARELADO
-    //R. RECONHECIMENTO A DISTANCIA TECNOLOGO
-    //R. RECONHECIMENTO A DISTANCIA LICENCIATURA
-    //MEDICINA
 }
