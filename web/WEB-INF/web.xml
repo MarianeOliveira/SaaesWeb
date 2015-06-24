@@ -10,15 +10,15 @@
         <load-on-startup>1</load-on-startup>
     </servlet>-->
     <!-- Toda vez que abre o programa, o filtro eh acionado - Filtro Segurança -->
-    <filter>
+<!--    <filter>
         <filter-name>OpenSSO</filter-name>
         <filter-class>br.com.saaes.api.filter.FiltroSeguranca</filter-class>
-    </filter>
-    <filter-mapping>
+    </filter>-->
+<!--    <filter-mapping>
         <filter-name>OpenSSO</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     
       <!-- Filtro JPA -->
     <filter>
@@ -65,7 +65,7 @@
         <mime-type>application/x-font-woff</mime-type>
     </mime-mapping>
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>login.xhtml</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>500</error-code>
