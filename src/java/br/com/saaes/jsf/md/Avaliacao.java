@@ -103,6 +103,7 @@ public class Avaliacao extends TabViewMB implements Serializable {
                 this.t700Avaliacaolist.add(t700NovaAvaliacao);
                 t700NovaAvaliacao = new T700avaliacao();
                 JsfUtil.addSuccessMessage("Avaliação realizada com sucesso!");
+                avaliar = false;
 
             } else {
                 JsfUtil.addAlertMessage("Erro ao efetuar avaliação!");
